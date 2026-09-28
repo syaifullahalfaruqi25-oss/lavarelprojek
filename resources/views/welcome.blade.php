@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <h1>Halo, AKU AFDA</h1>
+    <h1>Halo kontol, AKU AFDA</h1>
 
 </body>
 </html>
