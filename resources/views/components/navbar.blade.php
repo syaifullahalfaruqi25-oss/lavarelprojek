@@ -1,113 +1,56 @@
-<nav class="navbar">
-
-    <div class="navbar-inner">
-
+<!-- Nav Wrapper: Membuatnya mengambang (fixed) di posisi atas -->
+<nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-7xl z-50">
+    
+    <!-- Navbar Background & Shape -->
+    <div class="bg-[#1B2A47] rounded-2xl px-6 py-3 flex items-center justify-between shadow-2xl border border-white/10 backdrop-blur-md">
+        
         {{-- BRAND --}}
-        <a href="/" class="brand">
-
-            <div class="brand-logo">
-                <img src="{{ asset('images/logo.png') }}" alt="Property Logo">
+        <a href="/" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm transition-transform group-hover:scale-105">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-contain" onerror="this.outerHTML='<span class=\'text-[#1B2A47] font-extrabold text-xl\'>N</span>'">
             </div>
-
-            <div class="brand-content">
-                <span class="brand-name">NUSANTARA</span>
-                <span class="brand-subtitle">PROPERTY & LIVING</span>
+            <div class="flex flex-col leading-none">
+                <span class="text-white font-bold tracking-widest text-sm">NUSANTARA</span>
+                <span class="text-[#4FD1C5] text-[9px] tracking-[0.2em] uppercase mt-1">Property & Living</span>
             </div>
-
         </a>
-
 
         {{-- DESKTOP NAVIGATION --}}
-        <div class="nav-menu">
-
-            <a href="/" class="nav-link active">
-                <span>01</span>
-                Beranda
+        <div class="hidden lg:flex items-center gap-2 bg-white/5 p-1 rounded-xl">
+            <a href="/" class="text-white text-sm bg-white/10 px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium shadow-sm">
+                <span class="text-[#4FD1C5] text-xs font-bold"></span> Beranda
             </a>
-
-            <a href="{{ url('/properti') }}" class="text-white font-medium hover:text-[#34847E] transition">
-                <span class="text-xs text-[#D77D2F] mr-2">02</span>
-                Perumahan
+            <a href="/perumahan" class="text-gray-300 text-sm hover:bg-white/10 hover:text-white px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium">
+                <span class="text-gray-500 text-xs font-bold"></span> Perumahan
             </a>
-            
-            <a href="#" class="nav-link">
-                <span>03</span>
-                Tentang Kami
+            <a href="#" class="text-gray-300 text-sm hover:bg-white/10 hover:text-white px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium">
+                <span class="text-gray-500 text-xs font-bold"></span> Tentang Kami
             </a>
-
-            <a href="#" class="nav-link">
-                <span>04</span>
-                Kontak
+            <a href="#" class="text-gray-300 text-sm hover:bg-white/10 hover:text-white px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium">
+                <span class="text-gray-500 text-xs font-bold"></span> Kontak
             </a>
-
         </div>
-
 
         {{-- RIGHT ACTION --}}
-        <div class="nav-right">
-
-            <a href="#" class="nav-login">
+        <div class="hidden md:flex items-center gap-4">
+            <a href="#" class="text-gray-300 text-sm hover:text-white transition-colors font-medium hover:underline decoration-[#4FD1C5] underline-offset-4">
                 Masuk
             </a>
-
-            <a href="#" class="nav-button">
-
-                <span class="nav-button-text">
-                    Temukan Hunian
-                </span>
-
-                <span class="nav-button-icon">
-                    ↗
-                </span>
-
+            <!-- Tombol CTA yang disesuaikan dengan tombol "Lihat Siteplan Digital" -->
+            <a href="#" class="bg-[#2A8575] hover:bg-[#1f6b5d] text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-[#2A8575]/40 hover:-translate-y-0.5">
+                Temukan Hunian
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
             </a>
-
         </div>
 
-
-        {{-- MOBILE BUTTON --}}
-        <input type="checkbox" id="menu-toggle" class="menu-toggle">
-
-        <label for="menu-toggle" class="menu-button">
-
-            <span></span>
-            <span></span>
-
-        </label>
+        {{-- MOBILE BUTTON (Hamburger Icon) --}}
+        <button class="lg:hidden text-white hover:bg-white/10 p-2 rounded-lg transition-colors focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
 
     </div>
-
-
-    {{-- MOBILE MENU --}}
-    <div class="mobile-menu">
-
-        <a href="/" class="mobile-link active">
-            Beranda
-        </a>
-
-        <a href="#" class="mobile-link">
-            Perumahan
-        </a>
-
-        <a href="#" class="mobile-link">
-            Tentang Kami
-        </a>
-
-        <a href="#" class="mobile-link">
-            Kontak
-        </a>
-
-        <div class="mobile-line"></div>
-
-        <a href="#" class="mobile-login">
-            Masuk
-        </a>
-
-        <a href="#" class="mobile-button">
-            Temukan Hunian
-            <span>↗</span>
-        </a>
-
-    </div>
-
 </nav>

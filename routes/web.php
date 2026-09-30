@@ -2,39 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Route untuk Halaman Beranda
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/properti', function () {
+// Route untuk Halaman Katalog (Daftar Perumahan)
+Route::get('/perumahan', function () {
+    return view('properties.index');
+});
 
-    $properties = [
-
-        [
-            'id' => 1,
-            'name' => 'Grand Casheera',
-            'location' => 'Banyuputih, Kabupaten Batang',
-            'developer' => 'PT Inti Tiga Berlian',
-        ],
-
-        [
-            'id' => 2,
-            'name' => 'Griya Harmoni Residence',
-            'location' => 'Mertoyudan, Kabupaten Magelang',
-            'developer' => 'PT Griya Harmoni Indonesia',
-        ],
-
-        [
-            'id' => 3,
-            'name' => 'Taman Sejahtera Residence',
-            'location' => 'Tembalang, Kota Semarang',
-            'developer' => 'PT Sejahtera Nusantara',
-        ],
-
-    ];
-
-    return view('properties.index', [
-        'properties' => $properties
-    ]);
-
+// Route untuk Halaman Detail Perumahan (Jalur Baru)
+Route::get('/perumahan/{id}', function ($id) {
+    return view('properties.show');
 });
