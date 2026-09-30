@@ -19,9 +19,15 @@
             <!-- DATA DINAMIS DARI DATABASE -->
             @foreach ($properties as $property)
             <div class="bg-[#FDFBF7] rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.1)] transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
-                <div class="relative h-56 bg-gray-200 overflow-hidden">
-                    <img src="{{ asset('images/' . $property->image) }}" alt="{{ $property->name }}" class="w-full h-full object-cover">
-                </div>
+               <div class="relative h-56 bg-gray-200 overflow-hidden">
+    @if ($property->image_url)
+        <img src="{{ $property->image_url }}" alt="{{ $property->name }}" class="w-full h-full object-cover">
+    @else
+        <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+            Belum ada gambar
+        </div>
+    @endif
+</div>
                 
                 <div class="p-5 flex-grow">
                     <h2 class="text-lg font-bold text-[#1A2639] mb-1 uppercase">{{ $property->name }}</h2>
