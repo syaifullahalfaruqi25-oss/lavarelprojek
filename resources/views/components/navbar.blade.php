@@ -25,11 +25,11 @@
                 Beranda
             </a>
 
-            <a href="#" class="nav-link">
-                <span>02</span>
+            <a href="{{ url('/properti') }}" class="text-white font-medium hover:text-[#34847E] transition">
+                <span class="text-xs text-[#D77D2F] mr-2">02</span>
                 Perumahan
             </a>
-
+            
             <a href="#" class="nav-link">
                 <span>03</span>
                 Tentang Kami
