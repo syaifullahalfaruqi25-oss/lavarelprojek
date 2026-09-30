@@ -15,20 +15,29 @@
             </div>
         </a>
 
-        {{-- DESKTOP NAVIGATION --}}
+      {{-- DESKTOP NAVIGATION --}}
         <div class="hidden lg:flex items-center gap-2 bg-white/5 p-1 rounded-xl">
-            <a href="/" class="text-white text-sm bg-white/10 px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium shadow-sm">
-                <span class="text-[#4FD1C5] text-xs font-bold"></span> Beranda
+            
+            <!-- Menu Beranda -->
+            <a href="/" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('/') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
+                Beranda
             </a>
-            <a href="/perumahan" class="text-gray-300 text-sm hover:bg-white/10 hover:text-white px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium">
-                <span class="text-gray-500 text-xs font-bold"></span> Perumahan
+            
+            <!-- Menu Perumahan -->
+            <a href="/perumahan" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('perumahan*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
+                Perumahan
             </a>
-            <a href="#" class="text-gray-300 text-sm hover:bg-white/10 hover:text-white px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium">
-                <span class="text-gray-500 text-xs font-bold"></span> Tentang Kami
+            
+            <!-- Menu Tentang Kami -->
+            <a href="#" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('tentang-kami*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
+                Tentang Kami
             </a>
-            <a href="#" class="text-gray-300 text-sm hover:bg-white/10 hover:text-white px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium">
-                <span class="text-gray-500 text-xs font-bold"></span> Kontak
+            
+            <!-- Menu Kontak -->
+            <a href="#" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('kontak*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
+                Kontak
             </a>
+            
         </div>
 
         {{-- RIGHT ACTION --}}

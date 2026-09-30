@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Property;
 
 // Route untuk Halaman Beranda (Landing Page) + Logika Filter
 Route::get('/', function (Request $request) {
@@ -57,14 +58,18 @@ Route::get('/', function (Request $request) {
 
     // 3. Kirim data ke view welcome
     return view('welcome', ['properties' => $semuaPerumahan]);
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Route untuk Halaman Katalog (Daftar Perumahan)
+// 1. Route untuk Halaman Katalog (Menampilkan Semua Data)
 Route::get('/perumahan', function () {
-    return view('properties.index');
+    $properties = Property::all();
+    return view('properties.index', compact('properties'));
 });
 
-// Route untuk Halaman Detail Perumahan (Jalur Baru)
+// 2. Route untuk Halaman Detail (Menampilkan Data Berdasarkan ID yang diklik)
 Route::get('/perumahan/{id}', function ($id) {
-    return view('properties.show');
+    $property = Property::findOrFail($id);
+    return view('properties.show', compact('property'));
 });
