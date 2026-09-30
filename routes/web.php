@@ -1,18 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Property;
 
-// Route untuk Halaman Beranda
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route untuk Halaman Katalog (Daftar Perumahan)
+// 1. Route untuk Halaman Katalog (Menampilkan Semua Data)
 Route::get('/perumahan', function () {
-    return view('properties.index');
+    $properties = Property::all();
+    return view('properties.index', compact('properties'));
 });
 
-// Route untuk Halaman Detail Perumahan (Jalur Baru)
+// 2. Route untuk Halaman Detail (Menampilkan Data Berdasarkan ID yang diklik)
 Route::get('/perumahan/{id}', function ($id) {
-    return view('properties.show');
+    $property = Property::findOrFail($id);
+    return view('properties.show', compact('property'));
 });
