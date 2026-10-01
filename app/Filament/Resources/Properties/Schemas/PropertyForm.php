@@ -31,7 +31,7 @@ class PropertyForm
                 FileUpload::make('image')
     ->label('Gambar Cover')
     ->image()
-    ->disk('public')
+    ->disk('supabase') // Ganti dengan disk yang sesuai
     ->directory('properties')
     ->visibility('public'),
                 Textarea::make('description')

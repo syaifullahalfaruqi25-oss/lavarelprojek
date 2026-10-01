@@ -16,18 +16,21 @@ class Property extends Model
     if (! $this->image) {
         return null;
     }
-
-    // Link penuh
+    // Jika sudah berupa link lengkap (http...)
     if (str_starts_with($this->image, 'http')) {
         return $this->image;
     }
-
-    // Gambar lama di public/images
-    if (file_exists(public_path('images/' . $this->image))) {
-        return asset('images/' . $this->image);
+    
+    // Jika tersimpan di cloud Supabase, buat URL publiknya
+    // Format endpoint public Supabase Storage: https://[project-id].supabase.co/storage/v1/object/public/[bucket-name]/[path]
+    $supabaseUrl = 'https://ywkzuvaspmyagqhgsyxp.supabase.co/storage/v1/object/public/properties/';
+    
+    // Tangani jika path di database sudah ada awalan 'properties/' atau belum
+    $path = ltrim($this->image, '/');
+    if (!str_starts_with($path, 'properties/')) {
+        $path = 'properties/' . $path;
     }
 
-    // Gambar hasil upload admin (storage/app/public)
-    return asset('storage/' . $this->image);
+    return 'https://ywkzuvaspmyagqhgsyxp.supabase.co/storage/v1/object/public/properties/' . str_replace('properties/', '', $this->image);
 }
 }
