@@ -58,7 +58,7 @@
             @forelse($properties as $prop)
             <div class="bg-[#FDFBF7] rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.1)] transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
                 <div class="relative h-56 bg-gray-200 overflow-hidden">
-                    <img src="{{ asset('images/' . $prop->image) }}" alt="{{ $prop->name }}" class="w-full h-full object-cover">
+                    <img src="{{ Storage::disk('s3')->url($prop->image) }}" alt="{{ $prop->name }}" class="w-full h-full object-cover">
                     <div class="absolute top-3 left-3 bg-[#2E8B57] text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm">Lokasi Aktif</div>
                     <div class="absolute top-3 right-3 bg-[#1E90FF] text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm">Rumah Tapak</div>
                 </div>
