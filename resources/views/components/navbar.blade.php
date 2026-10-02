@@ -10,7 +10,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-contain" onerror="this.outerHTML='<span class=\'text-[#1B2A47] font-extrabold text-xl\'>N</span>'">
             </div>
             <div class="flex flex-col leading-none">
-                <span class="text-white font-bold tracking-widest text-sm">NUSANTARA</span>
+                <span class="text-white font-bold tracking-widest text-sm">SolusiProperti</span>
                 <span class="text-[#4FD1C5] text-[9px] tracking-[0.2em] uppercase mt-1">Property & Living</span>
             </div>
         </a>
