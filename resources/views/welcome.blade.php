@@ -85,11 +85,12 @@
                     <p class="text-[11px] text-gray-500 mb-4 leading-relaxed uppercase">
                         {{ $prop->location }}
                     </p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="bg-[#D98A2C] text-white text-[10px] font-bold px-2 py-1 rounded">{{ $prop->subsidi_unit }} Unit subsidi</span>
-                        <span class="bg-[#2D3748] text-white text-[10px] font-bold px-2 py-1 rounded">{{ $prop->komersil_unit }} Unit komersil</span>
-                        <span class="bg-[#3A8F84] text-white text-[10px] font-bold px-2 py-1 rounded">{{ $prop->id_lokasi ?? '-' }}</span>
-                    </div>
+                   <div class="flex flex-wrap gap-1.5">
+    <span class="bg-[#D98A2C] text-white text-[10px] font-bold px-2 py-1 rounded">{{ $prop->subsidi_unit }} Unit subsidi</span>
+    <span class="bg-[#2D3748] text-white text-[10px] font-bold px-2 py-1 rounded">{{ $prop->komersil_unit }} Unit menengah</span>
+    <span class="bg-[#7C3AED] text-white text-[10px] font-bold px-2 py-1 rounded">{{ $prop->premium_unit }} Unit premium</span>
+    <span class="bg-[#3A8F84] text-white text-[10px] font-bold px-2 py-1 rounded">{{ $prop->id_lokasi ?? '-' }}</span>
+</div>
                 </div>
                 <div class="p-4 bg-white border-t border-gray-100">
                     <a href="/perumahan/{{ $prop->id }}" class="block w-full text-center bg-[#357B70] hover:bg-[#2A635A] text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">Lihat detail lokasi</a>

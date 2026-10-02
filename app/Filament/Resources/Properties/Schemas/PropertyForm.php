@@ -33,7 +33,12 @@ class PropertyForm
                     ->numeric()
                     ->default(0),
                 TextInput::make('komersil_unit')
-                    ->label('Jumlah Unit Komersil')
+                    ->label('Jumlah Unit Menengah')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                TextInput::make('premium_unit')
+                    ->label('Jumlah Unit Premium')
                     ->required()
                     ->numeric()
                     ->default(0),
@@ -47,12 +52,19 @@ class PropertyForm
                     ->label('Deskripsi')
                     ->columnSpanFull(),
 
-                // ===== BARU =====
                 Section::make('Peta & Kantor Pemasaran')
                     ->schema([
                         TextInput::make('google_maps_url')
                             ->label('Link Google Maps')
-                            ->url()
+                            ->placeholder('https://maps.app.goo.gl/...')
+                            ->maxLength(2000)
+                            ->dehydrateStateUsing(function ($state) {
+                                if (blank($state)) {
+                                    return null;
+                                }
+                                $state = trim($state);
+                                return preg_match('/^https?:\/\//i', $state) ? $state : 'https://' . $state;
+                            })
                             ->columnSpanFull(),
                         TextInput::make('marketing_phone')->label('Telepon'),
                         TextInput::make('marketing_whatsapp')
@@ -99,7 +111,11 @@ class PropertyForm
                                     ->required(),
                                 Select::make('category')
                                     ->label('Kategori')
-                                    ->options(['subsidi' => 'Subsidi', 'komersil' => 'Komersil'])
+                                    ->options([
+                                        'subsidi'  => 'Subsidi',
+                                        'komersil' => 'Menengah',
+                                        'premium'  => 'Premium',
+                                    ])
                                     ->default('subsidi')
                                     ->required(),
                                 TextInput::make('price')

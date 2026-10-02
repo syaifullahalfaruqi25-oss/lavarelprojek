@@ -8,25 +8,27 @@ use App\Models\Property;
 Route::get('/', function (Request $request) {
     $query = Property::query();
 
-    // 1. Filter Jenis Perumahan (Subsidi / Komersil)
+    // Filter Jenis: Subsidi / Menengah (Komersil) / Premium
     if ($request->filled('Jenis')) {
         $jenis = $request->Jenis;
-        
+
         if ($jenis == 'Subsidi') {
             $query->where('subsidi_unit', '>', 0);
         } elseif ($jenis == 'Komersil') {
             $query->where('komersil_unit', '>', 0);
+        } elseif ($jenis == 'Premium') {
+            $query->where('premium_unit', '>', 0);
         }
     }
-    
+
     if ($request->filled('kota')) {
         $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
-    
+
     if ($request->filled('kecamatan')) {
         $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
     }
-    
+
     if ($request->filled('developer')) {
         $query->where('developer', 'Ilike', '%' . trim($request->developer) . '%');
     }
@@ -36,44 +38,42 @@ Route::get('/', function (Request $request) {
     return view('welcome', compact('properties'));
 });
 
-// Route untuk Halaman Katalog (Menampilkan Semua Data + Filter Lengkap)
+// Route untuk Halaman Katalog
 Route::get('/perumahan', function (Request $request) {
     $query = Property::query();
 
-    // 1. Filter Jenis Perumahan (Subsidi / Komersil)
+    // Filter Jenis: Subsidi / Menengah (Komersil) / Premium
     if ($request->filled('Jenis')) {
         $jenis = $request->Jenis;
-        
+
         if ($jenis == 'Subsidi') {
             $query->where('subsidi_unit', '>', 0);
         } elseif ($jenis == 'Komersil') {
             $query->where('komersil_unit', '>', 0);
-        } elseif ($jenis == 'Menengah') {
-            $query->where('menengah_unit', '>', 0);
         } elseif ($jenis == 'Premium') {
             $query->where('premium_unit', '>', 0);
         }
     }
-    
+
     if ($request->filled('kota')) {
         $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
-    
+
     if ($request->filled('kecamatan')) {
         $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
     }
-    
+
     if ($request->filled('developer')) {
         $query->where('developer', 'Ilike', '%' . trim($request->developer) . '%');
     }
 
     $properties = $query->get();
-    
+
     return view('properties.index', compact('properties'));
 });
 
-// Route untuk Halaman Detail (Menampilkan Data Berdasarkan ID yang diklik)
+// Route untuk Halaman Detail
 Route::get('/perumahan/{id}', function ($id) {
-    $property = Property::findOrFail($id);
+    $property = Property::with(['photos', 'types'])->findOrFail($id);
     return view('properties.show', compact('property'));
 });

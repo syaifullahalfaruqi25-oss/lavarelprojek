@@ -34,11 +34,13 @@
                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 min-w-[250px]">
                     <h3 class="text-xs font-bold text-gray-500 uppercase mb-3 text-center">Status Rumah</h3>
                     <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white text-center mb-4">
-                        <div class="bg-orange py-1.5 rounded">Subsidi: {{ $property->subsidi_unit }} Unit</div>
-                        <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
-                        <div class="bg-darknavy py-1.5 rounded">Komersil: {{ $property->komersil_unit }} Unit</div>
-                        <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
-                    </div>
+    <div class="bg-orange py-1.5 rounded">Subsidi: {{ $property->subsidi_unit }} Unit</div>
+    <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
+    <div class="bg-darknavy py-1.5 rounded">Menengah: {{ $property->komersil_unit }} Unit</div>
+    <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
+    <div class="bg-purple-600 py-1.5 rounded">Premium: {{ $property->premium_unit }} Unit</div>
+    <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
+</div>
                     <a href="#siteplan" class="block w-full text-center bg-teal hover:bg-darkteal text-white font-bold py-2.5 rounded-lg transition-colors shadow-sm">
                         Lihat Siteplan Digital
                     </a>
@@ -122,7 +124,9 @@
                         <div class="{{ ! $loop->last ? 'border-b border-gray-100 pb-8 mb-8' : '' }}">
                             <h3 class="text-lg font-bold text-darkteal mb-4">
                                 {{ $i + 1 }}. {{ $type->name }}
-                                <span class="text-sm font-medium text-gray-500">({{ $type->category }})</span>
+                                <span class="text-sm font-medium text-gray-500">
+    ({{ ['subsidi' => 'Subsidi', 'komersil' => 'Menengah', 'premium' => 'Premium'][$type->category] ?? $type->category }})
+</span>
                             </h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -165,7 +169,7 @@
                             @endif
                         </div>
                     @empty
-                        <p class="text-gray-400 text-sm">Belum ada tipe rumah. Total unit: {{ $property->subsidi_unit + $property->komersil_unit }}.</p>
+                        <p class="text-gray-400 text-sm">Belum ada tipe rumah. Total unit: {{ $property->subsidi_unit + $property->komersil_unit + $property->premium_unit }}.
                     @endforelse
                 </div>
             </div>
@@ -180,22 +184,29 @@
             <div class="grid grid-cols-1 xl:grid-cols-4">
                 <div class="xl:col-span-1 border-r border-gray-200 p-6 bg-[#FCFCFA]">
                     <h3 class="font-bold text-navy uppercase text-sm mb-4 border-b border-gray-200 pb-2">Status Unit</h3>
-                    <div class="grid grid-cols-2 gap-4 mb-8">
-                        <div>
-                            <div class="text-[10px] font-bold text-center text-gray-500 uppercase mb-2">Komersil</div>
-                            <div class="space-y-1.5 text-[10px] text-white font-bold text-center">
-                                <div class="bg-gray-500 py-1.5 rounded shadow-sm">{{ $property->komersil_unit }} Kavling</div>
-                                <div class="bg-gray-600 py-1.5 rounded shadow-sm">0 Terjual</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="text-[10px] font-bold text-center text-gray-500 uppercase mb-2">Subsidi</div>
-                            <div class="space-y-1.5 text-[10px] text-white font-bold text-center">
-                                <div class="bg-yellow-400 py-1.5 rounded shadow-sm text-yellow-900">{{ $property->subsidi_unit }} Kavling</div>
-                                <div class="bg-red-600 py-1.5 rounded shadow-sm">0 Terjual</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="grid grid-cols-3 gap-2 mb-8">
+    <div>
+        <div class="text-[10px] font-bold text-center text-gray-500 uppercase mb-2">Subsidi</div>
+        <div class="space-y-1.5 text-[10px] text-white font-bold text-center">
+            <div class="bg-yellow-400 py-1.5 rounded shadow-sm text-yellow-900">{{ $property->subsidi_unit }} Kavling</div>
+            <div class="bg-red-600 py-1.5 rounded shadow-sm">0 Terjual</div>
+        </div>
+    </div>
+    <div>
+        <div class="text-[10px] font-bold text-center text-gray-500 uppercase mb-2">Menengah</div>
+        <div class="space-y-1.5 text-[10px] text-white font-bold text-center">
+            <div class="bg-gray-500 py-1.5 rounded shadow-sm">{{ $property->komersil_unit }} Kavling</div>
+            <div class="bg-gray-600 py-1.5 rounded shadow-sm">0 Terjual</div>
+        </div>
+    </div>
+    <div>
+        <div class="text-[10px] font-bold text-center text-gray-500 uppercase mb-2">Premium</div>
+        <div class="space-y-1.5 text-[10px] text-white font-bold text-center">
+            <div class="bg-purple-600 py-1.5 rounded shadow-sm">{{ $property->premium_unit }} Kavling</div>
+            <div class="bg-gray-600 py-1.5 rounded shadow-sm">0 Terjual</div>
+        </div>
+    </div>
+</div>
                 </div>
 
                 <div class="xl:col-span-3 p-8 flex items-center justify-center min-h-[500px] bg-white relative">
