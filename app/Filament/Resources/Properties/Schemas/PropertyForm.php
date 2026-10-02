@@ -3,8 +3,11 @@
 namespace App\Filament\Resources\Properties\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class PropertyForm
@@ -42,6 +45,101 @@ class PropertyForm
                     ->visibility('private'),
                 Textarea::make('description')
                     ->label('Deskripsi')
+                    ->columnSpanFull(),
+
+                // ===== BARU =====
+                Section::make('Peta & Kantor Pemasaran')
+                    ->schema([
+                        TextInput::make('google_maps_url')
+                            ->label('Link Google Maps')
+                            ->url()
+                            ->columnSpanFull(),
+                        TextInput::make('marketing_phone')->label('Telepon'),
+                        TextInput::make('marketing_whatsapp')
+                            ->label('No WhatsApp')
+                            ->placeholder('628123456789'),
+                        TextInput::make('marketing_email')->label('Email')->email(),
+                        TextInput::make('marketing_address')->label('Alamat Kantor Pemasaran'),
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull(),
+
+                Section::make('Foto Lokasi')
+                    ->schema([
+                        Repeater::make('photos')
+                            ->relationship()
+                            ->label('Foto')
+                            ->schema([
+                                TextInput::make('title')
+                                    ->label('Judul Foto')
+                                    ->placeholder('Foto Gerbang / Jalan Utama')
+                                    ->required(),
+                                FileUpload::make('image')
+                                    ->label('File Foto')
+                                    ->image()
+                                    ->disk('s3')
+                                    ->directory('properties')
+                                    ->visibility('private')
+                                    ->required(),
+                            ])
+                            ->columns(2)
+                            ->addActionLabel('Tambah Foto'),
+                    ])
+                    ->columnSpanFull(),
+
+                Section::make('Tipe Rumah')
+                    ->schema([
+                        Repeater::make('types')
+                            ->relationship()
+                            ->label('Tipe')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Nama Tipe')
+                                    ->placeholder('Tipe 36')
+                                    ->required(),
+                                Select::make('category')
+                                    ->label('Kategori')
+                                    ->options(['subsidi' => 'Subsidi', 'komersil' => 'Komersil'])
+                                    ->default('subsidi')
+                                    ->required(),
+                                TextInput::make('price')
+                                    ->label('Harga')
+                                    ->numeric()
+                                    ->prefix('Rp'),
+                                TextInput::make('building_area')
+                                    ->label('Luas Bangunan (m²)')
+                                    ->numeric(),
+                                TextInput::make('land_area')
+                                    ->label('Luas Lahan (m²)')
+                                    ->numeric(),
+                                TextInput::make('bedrooms')
+                                    ->label('Kamar Tidur')
+                                    ->numeric(),
+                                TextInput::make('bathrooms')
+                                    ->label('Kamar Mandi')
+                                    ->numeric(),
+                                FileUpload::make('images')
+                                    ->label('Foto Tipe')
+                                    ->image()
+                                    ->multiple()
+                                    ->disk('s3')
+                                    ->directory('properties')
+                                    ->visibility('private')
+                                    ->columnSpanFull(),
+                                Repeater::make('specs')
+                                    ->label('Spesifikasi Teknis')
+                                    ->schema([
+                                        TextInput::make('judul')->placeholder('Atap')->required(),
+                                        TextInput::make('isi')->placeholder('Baja ringan')->required(),
+                                    ])
+                                    ->columns(2)
+                                    ->columnSpanFull()
+                                    ->addActionLabel('Tambah Spesifikasi'),
+                            ])
+                            ->columns(2)
+                            ->collapsible()
+                            ->addActionLabel('Tambah Tipe Rumah'),
+                    ])
                     ->columnSpanFull(),
             ]);
     }

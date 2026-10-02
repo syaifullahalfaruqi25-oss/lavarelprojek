@@ -9,28 +9,35 @@ class Property extends Model
     protected $fillable = [
         'name', 'developer', 'location', 'id_lokasi',
         'subsidi_unit', 'komersil_unit', 'image', 'description',
+        'google_maps_url',
+        'marketing_address',
+        'marketing_phone',
+        'marketing_email',
+        'marketing_whatsapp',
     ];
 
-    public function getImageUrlAttribute(): ?string
-{
-    if (! $this->image) {
-        return null;
-    }
-    // Jika sudah berupa link lengkap (http...)
-    if (str_starts_with($this->image, 'http')) {
-        return $this->image;
-    }
-    
-    // Jika tersimpan di cloud Supabase, buat URL publiknya
-    // Format endpoint public Supabase Storage: https://[project-id].supabase.co/storage/v1/object/public/[bucket-name]/[path]
-    $supabaseUrl = 'https://ywkzuvaspmyagqhgsyxp.supabase.co/storage/v1/object/public/properties/';
-    
-    // Tangani jika path di database sudah ada awalan 'properties/' atau belum
-    $path = ltrim($this->image, '/');
-    if (!str_starts_with($path, 'properties/')) {
-        $path = 'properties/' . $path;
+    public function photos()
+    {
+        return $this->hasMany(PropertyPhoto::class);
     }
 
-    return 'https://ywkzuvaspmyagqhgsyxp.supabase.co/storage/v1/object/public/properties/' . str_replace('properties/', '', $this->image);
-}
+    public function types()
+    {
+        return $this->hasMany(PropertyType::class);
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        if (! $this->image) {
+            return null;
+        }
+
+        if (str_starts_with($this->image, 'http')) {
+            return $this->image;
+        }
+
+        $base = 'https://ywkzuvaspmyagqhgsyxp.supabase.co/storage/v1/object/public/properties/';
+
+        return $base . str_replace('properties/', '', ltrim($this->image, '/'));
+    }
 }
