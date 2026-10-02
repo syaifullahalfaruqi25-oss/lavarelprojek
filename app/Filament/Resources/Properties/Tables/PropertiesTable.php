@@ -16,8 +16,8 @@ class PropertiesTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-    ->label('Gambar')
-    ->state(fn ($record) => $record->image_url),
+                    ->label('Gambar')
+                    ->state(fn ($record) => $record->image_url),
                 TextColumn::make('name')
                     ->label('Nama Perumahan')
                     ->searchable()
@@ -33,7 +33,11 @@ class PropertiesTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('komersil_unit')
-                    ->label('Unit Komersil')
+                    ->label('Unit Menengah')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('premium_unit')
+                    ->label('Unit Premium')
                     ->numeric()
                     ->sortable(),
             ])
