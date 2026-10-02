@@ -14,6 +14,15 @@
             <div class="bg-white p-6 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 mb-12">
                 <form action="{{ url()->current() }}" method="GET" class="flex flex-col md:flex-row gap-4">
 
+<<<<<<< HEAD
+                    <select name="Jenis" onchange="this.form.submit()"
+                        class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
+                        <option value="">Jenis Perumahan</option>
+                        <option value="Subsidi" {{ request('Jenis') == 'Subsidi' ? 'selected' : '' }}>Subsidi</option>
+                        <option value="Menengah" {{ request('Jenis') == 'Menengah' ? 'selected' : '' }}>Menengah</option>
+                        <option value="Premium" {{ request('Jenis') == 'Premium' ? 'selected' : '' }}>Premium</option>
+                    </select>
+=======
                    <select name="Jenis" onchange="this.form.submit()"
     class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
     <option value="">Jenis Perumahan</option>
@@ -21,6 +30,7 @@
     <option value="Komersil" {{ request('Jenis') == 'Komersil' ? 'selected' : '' }}>Menengah</option>
     <option value="Premium" {{ request('Jenis') == 'Premium' ? 'selected' : '' }}>Premium</option>
 </select>
+>>>>>>> 4bc9081bf77e82735149834995dcd9f0992518f6
 
                     <select name="kota" onchange="this.form.submit()"
                         class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">

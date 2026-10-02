@@ -27,8 +27,8 @@
         class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
         <option value="">Jenis Perumahan</option>
         <option value="Subsidi" {{ request('Jenis') == 'Subsidi' ? 'selected' : '' }}>Subsidi</option>
-        <option value="Komersil" {{ request('Jenis') == 'Komersil' ? 'selected' : '' }}>Komersil</option>
-        
+        <option value="Menengah" {{ request('Jenis') == 'Menengah' ? 'selected' : '' }}>Menengah</option>
+        <option value="Premium" {{ request('Jenis') == 'Premium' ? 'selected' : '' }}>Premium</option>
     </select>
 
     <select name="kota" onchange="this.form.submit()"
