@@ -74,6 +74,6 @@ Route::get('/perumahan', function (Request $request) {
 
 // Route untuk Halaman Detail
 Route::get('/perumahan/{id}', function ($id) {
-    $property = Property::with(['photos', 'types'])->findOrFail($id);
+    $property = Property::with(['photos', 'types', 'units'])->findOrFail($id);;
     return view('properties.show', compact('property'));
 });

@@ -157,6 +157,54 @@ class PropertyForm
                             ->addActionLabel('Tambah Tipe Rumah'),
                     ])
                     ->columnSpanFull(),
+                                    Section::make('Siteplan Digital')
+                    ->schema([
+                        FileUpload::make('siteplan_image')
+                            ->label('File Siteplan (SVG)')
+                            ->acceptedFileTypes(['image/svg+xml'])
+                            ->disk('s3')
+                            ->directory('properties')
+                            ->visibility('private')
+                            ->columnSpanFull(),
+                        Repeater::make('units')
+                            ->relationship()
+                            ->label('Kavling')
+                            ->schema([
+                                TextInput::make('code')
+                                    ->label('Kode (sama dengan ID di SVG)')
+                                    ->placeholder('A1')
+                                    ->required(),
+                                Select::make('category')
+                                    ->label('Jenis')
+                                    ->options([
+                                        'subsidi'  => 'Subsidi',
+                                        'komersil' => 'Menengah',
+                                        'premium'  => 'Premium',
+                                    ])
+                                    ->default('subsidi')
+                                    ->required(),
+                                Select::make('status')
+                                    ->options([
+                                        'tersedia'    => 'Kavling Tersedia',
+                                        'pembangunan' => 'Pembangunan',
+                                        'ready'       => 'Ready Stock',
+                                        'dipesan'     => 'Dipesan',
+                                        'proses_bank' => 'Proses Bank',
+                                        'terjual'     => 'Terjual',
+                                    ])
+                                    ->default('tersedia')
+                                    ->required(),
+                                TextInput::make('type_name')->label('Tipe'),
+                                TextInput::make('price')
+                                    ->label('Harga')
+                                    ->numeric()
+                                    ->prefix('Rp'),
+                            ])
+                            ->columns(3)
+                            ->collapsed()
+                            ->addActionLabel('Tambah Kavling'),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 }

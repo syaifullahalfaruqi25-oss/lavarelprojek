@@ -8,12 +8,14 @@ class Property extends Model
 {
     protected $fillable = [
         'name', 'developer', 'location', 'id_lokasi',
-        'subsidi_unit', 'komersil_unit', 'image', 'description',
+        'subsidi_unit', 'komersil_unit', 'premium_unit',
+        'image', 'description',
         'google_maps_url',
         'marketing_address',
         'marketing_phone',
         'marketing_email',
         'marketing_whatsapp',
+        'siteplan_image',
     ];
 
     public function photos()
@@ -24,6 +26,11 @@ class Property extends Model
     public function types()
     {
         return $this->hasMany(PropertyType::class);
+    }
+
+    public function units()
+    {
+        return $this->hasMany(SiteplanUnit::class);
     }
 
     public function getImageUrlAttribute(): ?string
