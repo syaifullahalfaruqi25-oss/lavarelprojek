@@ -21,35 +21,45 @@
         
         <!-- Box Filter -->
         <div class="bg-white p-6 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 mb-12">
-            <form action="{{ url()->current() }}" method="GET" class="flex flex-col md:flex-row gap-4">
-                
-                <select name="provinsi" onchange="this.form.submit()" class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
-                    <option value="">Pilih Provinsi</option>
-                    <option value="Jawa Tengah" {{ request('provinsi') == 'Jawa Tengah' ? 'selected' : '' }}>Jawa Tengah</option>
-                    <option value="Sulawesi Barat" {{ request('provinsi') == 'Sulawesi Barat' ? 'selected' : '' }}>Sulawesi Barat</option>
-                </select>
+            <form action="{{ url('/') }}" method="GET" class="flex flex-col md:flex-row gap-4">
 
-                <select name="kota" onchange="this.form.submit()" class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
-                    <option value="">Pilih Kabupaten/Kota</option>
-                    <option value="Batang" {{ request('kota') == 'Batang' ? 'selected' : '' }}>Batang</option>
-                    <option value="Pemalang" {{ request('kota') == 'Pemalang' ? 'selected' : '' }}>Pemalang</option>
-                    <option value="Mamuju" {{ request('kota') == 'Mamuju' ? 'selected' : '' }}>Mamuju</option>
-                </select>
+    <select name="Jenis" onchange="this.form.submit()"
+        class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
+        <option value="">Jenis Perumahan</option>
+        <option value="Subsidi" {{ request('Jenis') == 'Subsidi' ? 'selected' : '' }}>Subsidi</option>
+        <option value="Komersil" {{ request('Jenis') == 'Komersil' ? 'selected' : '' }}>Komersil</option>
+        
+    </select>
 
-                <select name="kecamatan" onchange="this.form.submit()" class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
-                    <option value="">Pilih Kecamatan</option>
-                    <option value="Banyuputih" {{ request('kecamatan') == 'Banyuputih' ? 'selected' : '' }}>Banyuputih</option>
-                    <option value="Pemalang" {{ request('kecamatan') == 'Pemalang' ? 'selected' : '' }}>Pemalang</option>
-                    <option value="Mamuju" {{ request('kecamatan') == 'Mamuju' ? 'selected' : '' }}>Mamuju</option>
-                </select>
+    <select name="kota" onchange="this.form.submit()"
+        class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
+        <option value="">Pilih Kabupaten/Kota</option>
+        <option value="Batang" {{ request('kota') == 'Batang' ? 'selected' : '' }}>Batang</option>
+        <option value="Pemalang" {{ request('kota') == 'Pemalang' ? 'selected' : '' }}>Pemalang</option>
+        <option value="Mamuju" {{ request('kota') == 'Mamuju' ? 'selected' : '' }}>Mamuju</option>
+    </select>
 
-                <input type="text" name="developer" placeholder="Ketik nama Developer (Lalu tekan Enter)..." value="{{ request('developer') }}" 
-                       class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
-                
-                <a href="{{ url()->current() }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2.5 rounded-md font-bold text-sm transition-colors flex items-center justify-center">
-                    RESET
-                </a>
-            </form>
+    <select name="kecamatan" onchange="this.form.submit()"
+        class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
+        <option value="">Pilih Kecamatan</option>
+        <option value="Banyuputih" {{ request('kecamatan') == 'Banyuputih' ? 'selected' : '' }}>Banyuputih</option>
+        <option value="Pemalang" {{ request('kecamatan') == 'Pemalang' ? 'selected' : '' }}>Pemalang</option>
+        <option value="Mamuju" {{ request('kecamatan') == 'Mamuju' ? 'selected' : '' }}>Mamuju</option>
+    </select>
+
+    <!-- Dropdown Developer yang baru -->
+    <select name="developer" onchange="this.form.submit()"
+        class="flex-1 border border-gray-300 rounded-md px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]">
+        <option value="">Pilih Developer</option>
+        <option value="PT Anugrah Bungsu Mandiri" {{ request('developer') == 'PT Anugrah Bungsu Mandiri' ? 'selected' : '' }}>PT Anugrah Bungsu Mandiri</option>
+        <option value="Gepenk dev" {{ request('developer') == 'Gepenk dev' ? 'selected' : '' }}>Gepenk dev</option>
+    </select>
+
+    <a href="{{ url('/perumahan') }}"
+        class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2.5 rounded-md font-bold text-sm transition-colors flex items-center justify-center">
+        RESET
+    </a>
+</form>
         </div>
 
         <!-- Grid Properti -->
@@ -58,7 +68,14 @@
             @forelse($properties as $prop)
             <div class="bg-[#FDFBF7] rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.1)] transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
                 <div class="relative h-56 bg-gray-200 overflow-hidden">
-                    <img src="{{ Storage::disk('s3')->url($prop->image) }}" alt="{{ $prop->name }}" class="w-full h-full object-cover">
+                    @if ($prop->image)
+    <img src="{{ Storage::disk('s3')->url($prop->image) }}" alt="{{ $prop->name }}"
+        class="w-full h-full object-cover">
+@else
+    <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+        Tidak ada gambar
+    </div>
+@endif
                     <div class="absolute top-3 left-3 bg-[#2E8B57] text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm">Lokasi Aktif</div>
                     <div class="absolute top-3 right-3 bg-[#1E90FF] text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm">Rumah Tapak</div>
                 </div>

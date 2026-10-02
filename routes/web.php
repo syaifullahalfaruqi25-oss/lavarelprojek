@@ -1,26 +1,34 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Models\Property;
 
-Route::get('/', function (\Illuminate\Http\Request $request) {
+// Route untuk Beranda (Welcome) + Filter Lengkap
+Route::get('/', function (Request $request) {
     $query = Property::query();
 
-    // Karena di database digabung di kolom 'location', kita nyarinya pakai 'like'
-    if ($request->filled('provinsi')) {
-        $query->where('location', 'like', '%' . $request->provinsi . '%');
+    // 1. Filter Jenis Perumahan (Subsidi / Komersil)
+    if ($request->filled('Jenis')) {
+        $jenis = $request->Jenis;
+        
+        if ($jenis == 'Subsidi') {
+            $query->where('subsidi_unit', '>', 0);
+        } elseif ($jenis == 'Komersil') {
+            $query->where('komersil_unit', '>', 0);
+        }
     }
     
     if ($request->filled('kota')) {
-        $query->where('location', 'like', '%' . $request->kota . '%');
+        $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
     
     if ($request->filled('kecamatan')) {
-        $query->where('location', 'like', '%' . $request->kecamatan . '%');
+        $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
     }
     
     if ($request->filled('developer')) {
-        $query->where('developer', 'like', '%' . $request->developer . '%');
+        $query->where('developer', 'Ilike', '%' . trim($request->developer) . '%');
     }
 
     $properties = $query->get();
@@ -28,25 +36,31 @@ Route::get('/', function (\Illuminate\Http\Request $request) {
     return view('welcome', compact('properties'));
 });
 
-// 1. Route untuk Halaman Katalog (Menampilkan Semua Data + Filter)
-Route::get('/perumahan', function (\Illuminate\Http\Request $request) {
-    $query = App\Models\Property::query();
+// Route untuk Halaman Katalog (Menampilkan Semua Data + Filter Lengkap)
+Route::get('/perumahan', function (Request $request) {
+    $query = Property::query();
 
-    // Logika filternya sama persis kayak di beranda
-    if ($request->filled('provinsi')) {
-        $query->where('location', 'like', '%' . $request->provinsi . '%');
+    // 1. Filter Jenis Perumahan (Subsidi / Komersil)
+    if ($request->filled('Jenis')) {
+        $jenis = $request->Jenis;
+        
+        if ($jenis == 'Subsidi') {
+            $query->where('subsidi_unit', '>', 0);
+        } elseif ($jenis == 'Komersil') {
+            $query->where('komersil_unit', '>', 0);
+        }
     }
     
     if ($request->filled('kota')) {
-        $query->where('location', 'like', '%' . $request->kota . '%');
+        $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
     
     if ($request->filled('kecamatan')) {
-        $query->where('location', 'like', '%' . $request->kecamatan . '%');
+        $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
     }
     
     if ($request->filled('developer')) {
-        $query->where('developer', 'like', '%' . $request->developer . '%');
+        $query->where('developer', 'Ilike', '%' . trim($request->developer) . '%');
     }
 
     $properties = $query->get();
@@ -54,7 +68,7 @@ Route::get('/perumahan', function (\Illuminate\Http\Request $request) {
     return view('properties.index', compact('properties'));
 });
 
-// 2. Route untuk Halaman Detail (Menampilkan Data Berdasarkan ID yang diklik)
+// Route untuk Halaman Detail (Menampilkan Data Berdasarkan ID yang diklik)
 Route::get('/perumahan/{id}', function ($id) {
     $property = Property::findOrFail($id);
     return view('properties.show', compact('property'));
