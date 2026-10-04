@@ -13,7 +13,7 @@ return new class extends Migration
                 $table->string('siteplan_image')->nullable();
             });
         }
-
+        DB::statement('DROP TABLE IF EXISTS siteplan_units CASCADE');
         Schema::create('siteplan_units', function (Blueprint $table) {
             $table->id();
             $table->foreignId('property_id')->constrained()->cascadeOnDelete();

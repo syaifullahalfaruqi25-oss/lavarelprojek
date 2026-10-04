@@ -34,13 +34,13 @@
                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 min-w-[250px]">
                     <h3 class="text-xs font-bold text-gray-500 uppercase mb-3 text-center">Status Rumah</h3>
                     <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white text-center mb-4">
-    <div class="bg-orange py-1.5 rounded">Subsidi: {{ $property->subsidi_unit }} Unit</div>
-    <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
-    <div class="bg-darknavy py-1.5 rounded">Menengah: {{ $property->komersil_unit }} Unit</div>
-    <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
-    <div class="bg-purple-600 py-1.5 rounded">Premium: {{ $property->premium_unit }} Unit</div>
-    <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
-</div>
+                        <div class="bg-orange py-1.5 rounded">Subsidi: {{ $property->subsidi_unit }} Unit</div>
+                        <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
+                        <div class="bg-darknavy py-1.5 rounded">Menengah: {{ $property->komersil_unit }} Unit</div>
+                        <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
+                        <div class="bg-purple-600 py-1.5 rounded">Premium: {{ $property->premium_unit }} Unit</div>
+                        <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
+                    </div>
                     <a href="#siteplan" class="block w-full text-center bg-teal hover:bg-darkteal text-white font-bold py-2.5 rounded-lg transition-colors shadow-sm">
                         Lihat Siteplan Digital
                     </a>
@@ -125,8 +125,8 @@
                             <h3 class="text-lg font-bold text-darkteal mb-4">
                                 {{ $i + 1 }}. {{ $type->name }}
                                 <span class="text-sm font-medium text-gray-500">
-    ({{ ['subsidi' => 'Subsidi', 'komersil' => 'Menengah', 'premium' => 'Premium'][$type->category] ?? $type->category }})
-</span>
+                                    ({{ ['subsidi' => 'Subsidi', 'komersil' => 'Menengah', 'premium' => 'Premium'][$type->category] ?? $type->category }})
+                                </span>
                             </h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -169,150 +169,223 @@
                             @endif
                         </div>
                     @empty
-                        <p class="text-gray-400 text-sm">Belum ada tipe rumah. Total unit: {{ $property->subsidi_unit + $property->komersil_unit + $property->premium_unit }}.
+                        <p class="text-gray-400 text-sm">Belum ada tipe rumah.</p>
                     @endforelse
                 </div>
             </div>
         </div>
 
-        <!-- 3. SITEPLAN (tidak diubah) -->
-      @php
-    $statusLabel = [
-        'tersedia' => 'Kavling', 'pembangunan' => 'Pembangunan', 'ready' => 'Ready Stock',
-        'dipesan' => 'Dipesan', 'proses_bank' => 'Proses Bank', 'terjual' => 'Terjual',
-    ];
-    $statusColor = [
-        'pembangunan' => '#F97316', 'ready' => '#16A34A', 'dipesan' => '#7E22CE',
-        'proses_bank' => '#2563EB', 'terjual' => '#DC2626',
-    ];
-    $tersediaColor = ['subsidi' => '#FACC15', 'komersil' => '#6B7280', 'premium' => '#14B8A6'];
-    $catLabel = ['subsidi' => 'Subsidi', 'komersil' => 'Menengah', 'premium' => 'Premium'];
+        <!-- 3. SITEPLAN INTERAKTIF ALA SIKUMBANG -->
+        @php
+            $statusLabel = [
+                'tersedia' => 'Kavling', 'pembangunan' => 'Pembangunan', 'ready' => 'Ready Stock',
+                'dipesan' => 'Dipesan', 'proses_bank' => 'Proses Bank', 'terjual' => 'Terjual',
+            ];
+            $statusColor = [
+                'pembangunan' => '#F97316', 'ready' => '#16A34A', 'dipesan' => '#7E22CE',
+                'proses_bank' => '#2563EB', 'terjual' => '#DC2626',
+            ];
+            $tersediaColor = ['subsidi' => '#FACC15', 'menengah' => '#6B7280', 'premium' => '#14B8A6'];
+            $catLabel = ['subsidi' => 'Subsidi', 'menengah' => 'Menengah', 'premium' => 'Premium'];
 
-    $unitsJson = $property->units->mapWithKeys(fn ($u) => [$u->code => [
-        'category' => $u->category, 'status' => $u->status,
-        'type' => $u->type_name, 'price' => $u->price,
-    ]]);
-    $bloks = $property->units->map(fn ($u) => preg_replace('/\d+/', '', $u->code))->unique()->sort()->values();
-@endphp
+            $unitsJson = $property->units->mapWithKeys(fn ($u) => [$u->code => [
+                'raw_status' => strtolower(trim($u->status ?? 'tersedia')),
+                'category' => $catLabel[$u->category] ?? $u->category,
+                'status' => $statusLabel[$u->status] ?? ucfirst($u->status),
+                'type' => $u->type_name ?? '-',
+                'price' => $u->price,
+            ]]);
+            
+            $bloks = $property->units->map(fn ($u) => preg_replace('/\d+/', '', $u->code))->unique()->sort()->values();
+        @endphp
 
-<div id="siteplan" class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-    <div class="bg-navy px-6 py-4">
-        <h2 class="text-xl font-extrabold text-white">Siteplan & Ketersediaan Unit</h2>
-    </div>
+        <div id="siteplan" class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden relative">
+            <div class="bg-navy px-6 py-4 flex justify-between items-center">
+                <h2 class="text-xl font-extrabold text-white">Siteplan & Ketersediaan Unit</h2>
+                <span class="text-xs text-gray-300 bg-black/20 px-3 py-1 rounded-full">Arahkan kursor atau klik kavling</span>
+            </div>
 
-    <div class="grid grid-cols-1 xl:grid-cols-4">
-        <!-- Panel kiri -->
-        <div class="xl:col-span-1 border-r border-gray-200 p-6 bg-[#FCFCFA] space-y-4">
-            @foreach ($catLabel as $cat => $label)
-                @php $list = $property->units->where('category', $cat); @endphp
-                @if ($list->count())
-                    <div class="rounded-lg border border-gray-200 p-3 bg-white">
-                        <p class="text-xs font-bold text-center text-gray-600 uppercase mb-2">{{ $label }}</p>
-                        <div class="space-y-1 text-[11px] font-bold text-white text-center">
-                            @foreach ($statusLabel as $key => $text)
-                                <div class="py-1 rounded"
-                                     style="background: {{ $key === 'tersedia' ? $tersediaColor[$cat] : $statusColor[$key] }};
-                                            {{ $key === 'tersedia' && $cat === 'subsidi' ? 'color:#713F12' : '' }}">
-                                    {{ $list->where('status', $key)->count() }} {{ $text }}
+            <!-- KOTAK HOVER TOOLTIP -->
+            <div id="siteplan-tooltip" class="absolute z-50 hidden bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-2xl border border-gray-200 text-xs pointer-events-none transition-all duration-75 w-56">
+                <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold">Informasi Kavling</p>
+                <p id="tip-code" class="text-base font-extrabold text-navy mb-2"></p>
+                <div class="space-y-1 text-gray-600 border-t border-gray-100 pt-2">
+                    <div class="flex justify-between"><span>Kategori:</span> <strong id="tip-cat" class="text-gray-800"></strong></div>
+                    <div class="flex justify-between"><span>Tipe:</span> <strong id="tip-type" class="text-gray-800"></strong></div>
+                    <div class="flex justify-between"><span>Status:</span> <strong id="tip-status" class="text-teal"></strong></div>
+                    <div class="flex justify-between border-t border-gray-100 pt-1 mt-1"><span>Harga:</span> <strong id="tip-price" class="text-green-600 font-bold"></strong></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-4">
+                <!-- Panel Kiri (Legenda & Filter Blok) -->
+                <div class="xl:col-span-1 border-r border-gray-200 p-6 bg-[#FCFCFA] space-y-4">
+                    @foreach ($catLabel as $cat => $label)
+                        @php $list = $property->units->where('category', $cat); @endphp
+                        @if ($list->count())
+                            <div class="rounded-lg border border-gray-200 p-3 bg-white shadow-xs">
+                                <p class="text-xs font-bold text-center text-gray-600 uppercase mb-2">{{ $label }}</p>
+                                <div class="space-y-1 text-[11px] font-bold text-white text-center">
+                                    @foreach ($statusLabel as $key => $text)
+                                        @php $count = $list->where('status', $key)->count(); @endphp
+                                        @if($count > 0)
+                                            <div class="py-1 rounded px-2 flex justify-between items-center"
+                                                 style="background: {{ $key === 'tersedia' ? $tersediaColor[$cat] : $statusColor[$key] }};
+                                                        {{ $key === 'tersedia' && $cat === 'subsidi' ? 'color:#713F12' : '' }}">
+                                                <span>{{ $text }}</span>
+                                                <span class="bg-black/20 px-1.5 py-0.5 rounded text-[10px]">{{ $count }}</span>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>
+                        @endif
+                    @endforeach
+
+                    @if ($bloks->count() > 0)
+                        <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-xs">
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Filter Berdasarkan Blok</label>
+                            <select id="blok-filter" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-teal focus:border-teal">
+                                <option value="">Tampilkan Semua Blok</option>
+                                @foreach ($bloks as $b)
+                                    <option value="{{ $b }}">Blok {{ $b }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    </div>
-                @endif
-            @endforeach
-
-            @if ($bloks->count() > 1)
-                <label class="block text-sm text-gray-600">Blok
-                    <select id="blok-filter" class="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm">
-                        <option value="">Semua blok</option>
-                        @foreach ($bloks as $b)
-                            <option value="{{ $b }}">{{ $b }}</option>
-                        @endforeach
-                    </select>
-                </label>
-            @endif
-        </div>
-
-        <!-- Area siteplan -->
-        <div class="xl:col-span-3 p-4 bg-white">
-            @if ($property->siteplan_image)
-                <div id="siteplan-box" class="w-full overflow-auto"></div>
-
-                <div id="unit-info" class="hidden mt-4 p-4 rounded-lg border border-gray-200 bg-[#FDFBF7]">
-                    <p class="text-xs text-gray-500 uppercase">Kavling</p>
-                    <p id="u-code" class="text-xl font-bold text-navy"></p>
-                    <ul class="text-sm text-gray-700 mt-2 space-y-1">
-                        <li>Jenis: <b id="u-cat"></b></li>
-                        <li>Status: <b id="u-status"></b></li>
-                        <li>Tipe: <b id="u-type"></b></li>
-                        <li>Harga: <b id="u-price"></b></li>
-                    </ul>
+                    @endif
                 </div>
 
-                <script>
-                    (function () {
-                        var units = @json($unitsJson);
-                        var statusLabel = @json($statusLabel);
-                        var statusColor = @json($statusColor);
-                        var tersediaColor = @json($tersediaColor);
-                        var catLabel = @json($catLabel);
-                        var box = document.getElementById('siteplan-box');
+                <!-- Area Peta SVG -->
+                <div class="xl:col-span-3 p-4 bg-white relative">
+                    @if ($property->siteplan_image)
+                        <div id="siteplan-box" class="w-full overflow-auto max-h-[600px] rounded-lg border border-gray-100 bg-gray-50/50 p-2"></div>
 
-                        function paint(el, color) {
-                            var shapes = el.matches('path,rect,polygon,circle,ellipse')
-                                ? [el] : el.querySelectorAll('path,rect,polygon,circle,ellipse');
-                            shapes.forEach(function (s) { s.style.setProperty('fill', color, 'important'); });
-                        }
+                        <!-- Kotak Detail Info di Bawah (Saat diklik) -->
+                        <div id="unit-info" class="hidden mt-4 p-4 rounded-xl border border-teal/30 bg-[#FDFBF7] shadow-xs flex justify-between items-center">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-bold">Kavling Terpilih</p>
+                                <p id="u-code" class="text-lg font-extrabold text-navy"></p>
+                                <div class="text-xs text-gray-600 space-x-3 mt-1">
+                                    <span>Jenis: <b id="u-cat" class="text-gray-800"></b></span>
+                                    <span>Status: <b id="u-status" class="text-teal"></b></span>
+                                    <span>Tipe: <b id="u-type" class="text-gray-800"></b></span>
+                                </div>
+                            </div>
+                            <div>
+                                <p id="u-price" class="text-lg font-extrabold text-green-600"></p>
+                            </div>
+                        </div>
 
-                        fetch(@json(Storage::disk('s3')->url($property->siteplan_image)))
-                            .then(function (r) { return r.text(); })
-                            .then(function (svg) {
-                                box.innerHTML = svg;
-                                var root = box.querySelector('svg');
-                                if (root) { root.style.width = '100%'; root.style.height = 'auto'; }
+                        <!-- SCRIPT INTERAKTIF SITEPLAN -->
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                var units = @json($unitsJson);
+                                var statusColor = @json($statusColor);
+                                var tersediaColor = @json($tersediaColor);
+                                var catLabel = @json($catLabel);
+                                var box = document.getElementById('siteplan-box');
+                                var tooltip = document.getElementById('siteplan-tooltip');
 
-                                Object.keys(units).forEach(function (code) {
-                                    var el = box.querySelector('[id="' + code + '"]');
-                                    if (!el) return;
-                                    var u = units[code];
-                                    var color = u.status === 'tersedia' ? tersediaColor[u.category] : statusColor[u.status];
-                                    paint(el, color);
-                                    el.style.cursor = 'pointer';
-                                    el.dataset.blok = code.replace(/\d+/g, '');
-
-                                    el.addEventListener('click', function () {
-                                        document.getElementById('u-code').textContent = code;
-                                        document.getElementById('u-cat').textContent = catLabel[u.category] || '-';
-                                        document.getElementById('u-status').textContent = statusLabel[u.status] || u.status;
-                                        document.getElementById('u-type').textContent = u.type || '-';
-                                        document.getElementById('u-price').textContent = u.price
-                                            ? 'Rp ' + Number(u.price).toLocaleString('id-ID') : 'Hubungi developer';
-                                        document.getElementById('unit-info').classList.remove('hidden');
+                                function paint(el, color) {
+                                    var shapes = el.matches('path,rect,polygon,circle,ellipse')
+                                        ? [el] : el.querySelectorAll('path,rect,polygon,circle,ellipse');
+                                    shapes.forEach(function (s) { 
+                                        s.style.setProperty('fill', color, 'important'); 
+                                        s.style.setProperty('fill-opacity', '0.9', 'important'); 
                                     });
-                                });
-                            })
-                            .catch(function () {
-                                box.innerHTML = '<p class="text-red-500 text-sm">Siteplan gagal dimuat.</p>';
-                            });
+                                }
 
-                        var filter = document.getElementById('blok-filter');
-                        if (filter) {
-                            filter.addEventListener('change', function () {
-                                box.querySelectorAll('[data-blok]').forEach(function (el) {
-                                    el.style.opacity = (!filter.value || el.dataset.blok === filter.value) ? '1' : '0.15';
-                                });
+                                fetch(@json(Storage::disk('s3')->url($property->siteplan_image)))
+                                    .then(function (r) { return r.text(); })
+                                    .then(function (svg) {
+                                        box.innerHTML = svg;
+                                        var root = box.querySelector('svg');
+                                        if (root) { 
+                                            root.style.width = '100%'; 
+                                            root.style.height = 'auto'; 
+                                        }
+
+                                        Object.keys(units).forEach(function (code) {
+                                            var el = box.querySelector('[id="' + code + '"]');
+                                            if (!el) return;
+                                            
+                                            var u = units[code];
+                                            var rawCategory = Object.keys(catLabel).find(key => catLabel[key] === u.category) || 'subsidi';
+                                            
+                                            var color = '#6B7280';
+                                            if (u.raw_status === 'tersedia' || u.raw_status === 'kavling') {
+                                                color = tersediaColor[rawCategory] || '#14B8A6';
+                                            } else if (statusColor[u.raw_status]) {
+                                                color = statusColor[u.raw_status];
+                                            }
+
+                                            paint(el, color);
+                                            el.style.cursor = 'pointer';
+                                            el.style.transition = 'all 0.2s ease';
+                                            el.dataset.blok = code.replace(/\d+/g, '');
+
+                                            el.addEventListener('mouseenter', function (e) {
+                                                document.getElementById('tip-code').textContent = 'Kavling ' + code;
+                                                document.getElementById('tip-cat').textContent = u.category;
+                                                document.getElementById('tip-type').textContent = u.type;
+                                                document.getElementById('tip-status').textContent = u.status;
+                                                document.getElementById('tip-price').textContent = u.price ? 'Rp ' + Number(u.price).toLocaleString('id-ID') : 'Hubungi Developer';
+                                                
+                                                tooltip.classList.remove('hidden');
+                                                el.style.stroke = '#0F172A';
+                                                el.style.strokeWidth = '2';
+                                            });
+
+                                            el.addEventListener('mousemove', function (e) {
+                                                var rect = box.getBoundingClientRect();
+                                                var x = e.clientX - rect.left + 15;
+                                                var y = e.clientY - rect.top - 60;
+                                                tooltip.style.left = x + 'px';
+                                                tooltip.style.top = y + 'px';
+                                            });
+
+                                            el.addEventListener('mouseleave', function () {
+                                                tooltip.classList.add('hidden');
+                                                el.style.stroke = 'none';
+                                            });
+
+                                            el.addEventListener('click', function () {
+                                                document.getElementById('u-code').textContent = 'Kavling ' + code;
+                                                document.getElementById('u-cat').textContent = u.category;
+                                                document.getElementById('u-status').textContent = u.status;
+                                                document.getElementById('u-type').textContent = u.type;
+                                                document.getElementById('u-price').textContent = u.price ? 'Rp ' + Number(u.price).toLocaleString('id-ID') : 'Hubungi Developer';
+                                                document.getElementById('unit-info').classList.remove('hidden');
+                                            });
+                                        });
+                                    })
+                                    .catch(function () {
+                                        box.innerHTML = '<p class="text-red-500 text-sm p-4">Siteplan gagal dimuat.</p>';
+                                    });
+
+                                var filter = document.getElementById('blok-filter');
+                                if (filter) {
+                                    filter.addEventListener('change', function () {
+                                        var selectedBlok = filter.value;
+                                        box.querySelectorAll('[data-blok]').forEach(function (el) {
+                                            if (!selectedBlok || el.dataset.blok === selectedBlok) {
+                                                el.style.display = 'block';
+                                            } else {
+                                                el.style.display = 'none';
+                                            }
+                                        });
+                                    });
+                                }
                             });
-                        }
-                    })();
-                </script>
-            @else
-                <div class="min-h-[300px] flex items-center justify-center border-4 border-dashed border-gray-200 rounded-xl bg-gray-50">
-                    <p class="text-gray-400 font-bold">Siteplan belum diunggah.</p>
+                        </script>
+                    @else
+                        <div class="min-h-[300px] flex items-center justify-center border-4 border-dashed border-gray-200 rounded-xl bg-gray-50">
+                            <p class="text-gray-400 font-bold">Siteplan belum diunggah untuk perumahan ini.</p>
+                        </div>
+                    @endif
                 </div>
-            @endif
+            </div>
         </div>
-    </div>
-</div>
 
     </div>
 </div>

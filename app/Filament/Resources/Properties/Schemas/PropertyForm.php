@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
+
 class PropertyForm
 {
     public static function configure(Schema $schema): Schema
@@ -161,7 +162,7 @@ class PropertyForm
                     ->schema([
                         FileUpload::make('siteplan_image')
                             ->label('File Siteplan (SVG)')
-                            ->acceptedFileTypes(['image/svg+xml'])
+                            //->acceptedFileTypes(['image/svg+xml'])
                             ->disk('s3')
                             ->directory('properties')
                             ->visibility('private')

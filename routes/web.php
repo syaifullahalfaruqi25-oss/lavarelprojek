@@ -14,8 +14,8 @@ Route::get('/', function (Request $request) {
 
         if ($jenis == 'Subsidi') {
             $query->where('subsidi_unit', '>', 0);
-        } elseif ($jenis == 'Komersil') {
-            $query->where('komersil_unit', '>', 0);
+        } elseif ($jenis == 'Menengah') {
+            $query->where('menengah_unit', '>', 0);
         } elseif ($jenis == 'Premium') {
             $query->where('premium_unit', '>', 0);
         }
@@ -48,8 +48,8 @@ Route::get('/perumahan', function (Request $request) {
 
         if ($jenis == 'Subsidi') {
             $query->where('subsidi_unit', '>', 0);
-        } elseif ($jenis == 'Komersil') {
-            $query->where('komersil_unit', '>', 0);
+        } elseif ($jenis == 'Menengah') {
+            $query->where('menengah_unit', '>', 0);
         } elseif ($jenis == 'Premium') {
             $query->where('premium_unit', '>', 0);
         }
@@ -76,4 +76,27 @@ Route::get('/perumahan', function (Request $request) {
 Route::get('/perumahan/{id}', function ($id) {
     $property = Property::with(['photos', 'types', 'units'])->findOrFail($id);;
     return view('properties.show', compact('property'));
+});
+
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
+// JALUR VIP: Hapus aja kode /bikin-admin sebelumnya, ganti sama yang ini wok!
+Route::get('/masuk-paksa', function () {
+    // 1. Bersihkan dulu email admin yang nyangkut/error
+    User::where('email', 'admin@admin.com')->delete();
+
+    // 2. Bikin akun baru dengan paksa
+    $admin = User::create([
+        'name' => 'Bos Nusantara',
+        'email' => 'admin@admin.com',
+        'password' => Hash::make('admin123')
+    ]);
+
+    // 3. INI KUNCINYA: Langsung login-kan ke sistem (Bypass form login!)
+    Auth::login($admin);
+
+    // 4. Langsung lemparkan ke dalam Dasbor Filament
+    return redirect('/admin');
 });
