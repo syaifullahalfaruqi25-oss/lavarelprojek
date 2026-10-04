@@ -44,6 +44,10 @@
                     <a href="#siteplan" class="block w-full text-center bg-teal hover:bg-darkteal text-white font-bold py-2.5 rounded-lg transition-colors shadow-sm">
                         Lihat Siteplan Digital
                     </a>
+                    <a href="{{ route('order.create', $property->id) }}"
+    class="block w-full text-center mt-2 bg-orange hover:opacity-90 text-white font-bold py-2.5 rounded-lg transition-colors shadow-sm">
+    Pre-order Sekarang
+</a>
                 </div>
             </div>
         </div>
@@ -271,9 +275,13 @@
                                     <span>Tipe: <b id="u-type" class="text-gray-800"></b></span>
                                 </div>
                             </div>
-                            <div>
-                                <p id="u-price" class="text-lg font-extrabold text-green-600"></p>
-                            </div>
+                            <div class="text-right">
+    <p id="u-price" class="text-lg font-extrabold text-green-600"></p>
+    <a id="u-order" href="#"
+        class="hidden mt-2 inline-block bg-teal hover:bg-darkteal text-white text-sm font-bold px-4 py-2 rounded-lg">
+        Pesan kavling ini
+    </a>
+</div>
                         </div>
 
                         <!-- SCRIPT INTERAKTIF SITEPLAN -->
@@ -355,6 +363,13 @@
                                                 document.getElementById('u-status').textContent = u.status;
                                                 document.getElementById('u-type').textContent = u.type;
                                                 document.getElementById('u-price').textContent = u.price ? 'Rp ' + Number(u.price).toLocaleString('id-ID') : 'Hubungi Developer';
+                                                var orderBtn = document.getElementById('u-order');
+if (u.raw_status === 'tersedia') {
+    orderBtn.href = @json(route('order.create', $property->id)) + '?unit=' + encodeURIComponent(code);
+    orderBtn.classList.remove('hidden');
+} else {
+    orderBtn.classList.add('hidden');
+}
                                                 document.getElementById('unit-info').classList.remove('hidden');
                                             });
                                         });

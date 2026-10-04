@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Property;
+use App\Http\Controllers\OrderController;
 
 // Route untuk Beranda (Welcome) + Filter Lengkap
 Route::get('/', function (Request $request) {
@@ -77,6 +78,11 @@ Route::get('/perumahan/{id}', function ($id) {
     $property = Property::with(['photos', 'types', 'units'])->findOrFail($id);;
     return view('properties.show', compact('property'));
 });
+Route::get('/perumahan/{id}/pesan', [OrderController::class, 'create'])->name('order.create');
+Route::post('/perumahan/{id}/pesan', [OrderController::class, 'store'])
+    ->middleware('throttle:5,10')   // maksimal 5 kiriman per 10 menit per pengguna
+    ->name('order.store');
+Route::get('/pesanan/{code}', [OrderController::class, 'success'])->name('order.success');
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
