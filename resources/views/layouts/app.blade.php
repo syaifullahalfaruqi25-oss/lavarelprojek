@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Property')</title>
+    <title>@yield('title', 'SolusiProperti')</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
