@@ -85,23 +85,28 @@
                 </div>
 
                 <!-- Peta Lokasi -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-lg font-bold text-navy border-b border-gray-100 pb-3 mb-4">Peta Lokasi</h2>
-                    @if ($property->google_maps_url)
-                        <a href="{{ $property->google_maps_url }}" target="_blank" rel="noopener"
-                            class="block w-full h-48 bg-gray-200 rounded-lg overflow-hidden relative group">
-                            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80"
-                                alt="Peta" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition">
-                            <span class="absolute inset-0 flex items-center justify-center">
-                                <span class="bg-navy text-white px-4 py-2 rounded text-sm font-bold shadow">Buka di Google Maps</span>
-                            </span>
-                        </a>
-                    @else
-                        <p class="text-sm text-gray-400">Link peta belum diisi.</p>
-                    @endif
-                </div>
-            </div>
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+    <h2 class="text-lg font-bold text-navy border-b border-gray-100 pb-3 mb-4">Peta Lokasi</h2>
 
+    @if ($property->latitude && $property->longitude)
+        <div class="rounded-lg overflow-hidden border border-gray-200">
+            <iframe
+                src="https://maps.google.com/maps?q={{ $property->latitude }},{{ $property->longitude }}&z=16&output=embed"
+                width="100%" height="260" style="border:0" loading="lazy" allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    @else
+        <p class="text-sm text-gray-400">Koordinat lokasi belum diisi.</p>
+    @endif
+
+    @if ($property->google_maps_url)
+        <a href="{{ $property->google_maps_url }}" target="_blank" rel="noopener"
+            class="block mt-3 text-center bg-navy hover:opacity-90 text-white text-sm font-bold py-2.5 rounded-lg transition">
+            Buka di Google Maps
+        </a>
+    @endif
+</div>
+</div>
             <!-- Kolom Kanan -->
             <div class="lg:col-span-2 space-y-8">
 

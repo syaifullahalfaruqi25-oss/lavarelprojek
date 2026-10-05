@@ -15,7 +15,7 @@ class Property extends Model
         'marketing_phone',
         'marketing_email',
         'marketing_whatsapp',
-        'siteplan_image',
+        'siteplan_image','latitude', 'longitude',
     ];
 
     public function photos()
