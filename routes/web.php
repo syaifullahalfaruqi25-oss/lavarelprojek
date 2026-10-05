@@ -106,3 +106,6 @@ Route::get('/masuk-paksa', function () {
     // 4. Langsung lemparkan ke dalam Dasbor Filament
     return redirect('/admin');
 });
+Route::get('/tentang-kami', function () {
+    return view('tentang');
+});

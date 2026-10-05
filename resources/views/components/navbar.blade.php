@@ -29,10 +29,10 @@
             </a>
             
             <!-- Menu Tentang Kami -->
-            <a href="#" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('tentang-kami*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
-                Tentang Kami
-            </a>
-            
+           <!-- Menu Tentang Kami -->
+<a href="{{ url('/tentang-kami') }}" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('tentang-kami*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
+    Tentang Kami
+</a>
             <!-- Menu Kontak -->
             <a href="#" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('kontak*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
                 Kontak
