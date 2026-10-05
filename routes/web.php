@@ -68,6 +68,18 @@ Route::get('/perumahan', function (Request $request) {
         $query->where('developer', 'Ilike', '%' . trim($request->developer) . '%');
     }
 
+    // Search dari Navbar
+    if ($request->filled('search')) {
+
+        $search = trim($request->search);
+
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'Ilike', '%' . $search . '%')
+                ->orWhere('location', 'Ilike', '%' . $search . '%')
+                ->orWhere('developer', 'Ilike', '%' . $search . '%');
+        });
+    }
+
     $properties = $query->get();
 
     return view('properties.index', compact('properties'));
@@ -75,9 +87,10 @@ Route::get('/perumahan', function (Request $request) {
 
 // Route untuk Halaman Detail
 Route::get('/perumahan/{id}', function ($id) {
-    $property = Property::with(['photos', 'types', 'units'])->findOrFail($id);;
+   $property = Property::with(['photos', 'types', 'units'])->findOrFail($id);
+
     return view('properties.show', compact('property'));
-});
+})->whereNumber('id');
 Route::get('/perumahan/{id}/pesan', [OrderController::class, 'create'])->name('order.create');
 Route::post('/perumahan/{id}/pesan', [OrderController::class, 'store'])
     ->middleware('throttle:5,10')   // maksimal 5 kiriman per 10 menit per pengguna

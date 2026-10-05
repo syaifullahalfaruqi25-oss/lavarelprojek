@@ -1,65 +1,116 @@
-<!-- Nav Wrapper: Membuatnya mengambang (fixed) di posisi atas -->
-<nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-7xl z-50">
-    
-    <!-- Navbar Background & Shape -->
-    <div class="bg-[#1B2A47] rounded-2xl px-6 py-3 flex items-center justify-between shadow-2xl border border-white/10 backdrop-blur-md">
-        
-        {{-- BRAND --}}
-        <a href="/" class="flex items-center gap-3 group">
-            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm transition-transform group-hover:scale-105">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-contain" onerror="this.outerHTML='<span class=\'text-[#1B2A47] font-extrabold text-xl\'>N</span>'">
-            </div>
-            <div class="flex flex-col leading-none">
-                <span class="text-white font-bold tracking-widest text-sm">SolusiProperti</span>
-                <span class="text-[#4FD1C5] text-[9px] tracking-[0.2em] uppercase mt-1">Property & Living</span>
-            </div>
-        </a>
+<nav id="mainNavbar" class="fixed top-0 left-0 w-full z-50 bg-[#172744] transition-all duration-500 ease-in-out">
 
-      {{-- DESKTOP NAVIGATION --}}
-        <div class="hidden lg:flex items-center gap-2 bg-white/5 p-1 rounded-xl">
-            
-            <!-- Menu Beranda -->
-            <a href="/" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('/') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
-                Beranda
-            </a>
-            
-            <!-- Menu Perumahan -->
-            <a href="/perumahan" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('perumahan*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
-                Perumahan
-            </a>
-            
-            <!-- Menu Tentang Kami -->
-           <!-- Menu Tentang Kami -->
-<a href="{{ url('/tentang-kami') }}" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('tentang-kami*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
-    Tentang Kami
-</a>
-            <!-- Menu Kontak -->
-            <a href="#" class="text-sm px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 font-medium {{ request()->is('kontak*') ? 'text-white bg-white/10 shadow-sm' : 'text-gray-300 hover:bg-white/10 hover:text-white' }}">
-                Kontak
-            </a>
-            
-        </div>
+    <div class="px-5 sm:px-6 lg:px-8">
 
-        {{-- RIGHT ACTION --}}
-        <div class="hidden md:flex items-center gap-4">
-            <a href="#" class="text-gray-300 text-sm hover:text-white transition-colors font-medium hover:underline decoration-[#4FD1C5] underline-offset-4">
-                Masuk
+        <div class="h-[72px] flex items-center justify-between">
+
+            {{-- LOGO --}}
+            <a href="{{ url('/') }}" class="flex items-center gap-3 shrink-0">
+                <div class="w-11 h-11 bg-white rounded-xl flex items-center justify-center overflow-hidden">
+                    <img src="{{ asset('images/logo.png') }}" alt="SolusiProperti" class="w-9 h-9 object-contain">
+                </div>
+                <div class="leading-tight">
+                    <div class="text-white font-bold text-lg tracking-wide">SolusiProperti</div>
+                    <div class="text-[#38A89D] text-[10px] font-semibold tracking-[0.18em]">PROPERTY & LIVING</div>
+                </div>
             </a>
-            <!-- Tombol CTA yang disesuaikan dengan tombol "Lihat Siteplan Digital" -->
-            <a href="#" class="bg-[#2A8575] hover:bg-[#1f6b5d] text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-[#2A8575]/40 hover:-translate-y-0.5">
-                Temukan Hunian
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+
+            {{-- MENU DESKTOP --}}
+            <div class="hidden lg:flex items-center gap-1">
+                <a href="{{ url('/') }}"
+                    class="px-5 py-3 rounded-xl transition-all duration-300 {{ request()->is('/') ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10' }}">
+                    Beranda
+                </a>
+                <a href="{{ url('/perumahan') }}"
+                    class="px-5 py-3 rounded-xl transition-all duration-300 {{ request()->is('perumahan*') ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10' }}">
+                    Perumahan
+                </a>
+                <a href="{{ url('/tentang-kami') }}"
+                    class="px-5 py-3 rounded-xl transition-all duration-300 {{ request()->is('tentang-kami*') ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10' }}">
+                    Tentang Kami
+                </a>
+                <a href="#kontak"
+                    class="px-5 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300">
+                    Kontak
+                </a>
+            </div>
+
+            {{-- SEARCH DESKTOP --}}
+            <div class="hidden lg:flex items-center">
+                <form action="{{ url('/perumahan') }}" method="GET" class="relative">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari perumahan..."
+                        class="w-52 xl:w-60 h-11 pl-11 pr-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-white/50 outline-none focus:bg-white/15 focus:border-[#38A89D]/60 transition-all duration-300">
+                    <button type="submit" class="absolute left-0 top-0 w-11 h-11 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            {{-- HAMBURGER MOBILE --}}
+            <button id="mobileMenuButton" type="button"
+                class="lg:hidden w-11 h-11 rounded-xl bg-white/10 hover:bg-white/15 flex items-center justify-center text-white transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-            </a>
+            </button>
+
         </div>
 
-        {{-- MOBILE BUTTON (Hamburger Icon) --}}
-        <button class="lg:hidden text-white hover:bg-white/10 p-2 rounded-lg transition-colors focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+        {{-- MENU MOBILE --}}
+        <div id="mobileMenu" class="lg:hidden max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out">
+            <div class="pb-5 pt-2 space-y-2">
+                <a href="{{ url('/') }}" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Beranda</a>
+                <a href="{{ url('/perumahan') }}" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Perumahan</a>
+                <a href="{{ url('/tentang-kami') }}" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Tentang Kami</a>
+                <a href="#kontak" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Kontak</a>
+
+                {{-- SEARCH MOBILE --}}
+                <form action="{{ url('/perumahan') }}" method="GET" class="relative pt-2">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari perumahan..."
+                        class="w-full h-11 pl-11 pr-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-white/50 outline-none focus:border-[#38A89D]/60">
+                    <button type="submit" class="absolute left-0 top-2 w-11 h-11 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
 
     </div>
+
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbar = document.getElementById('mainNavbar');
+        const mobileButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 30) {
+                navbar.classList.add('bg-[#172744]/80', 'backdrop-blur-xl', 'shadow-2xl', 'border-white/20');
+                navbar.classList.remove('bg-[#172744]');
+            } else {
+                navbar.classList.remove('bg-[#172744]/80', 'backdrop-blur-xl', 'shadow-2xl', 'border-white/20');
+                navbar.classList.add('bg-[#172744]');
+            }
+        });
+
+        let menuOpen = false;
+        mobileButton.addEventListener('click', function () {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.remove('max-h-0', 'opacity-0');
+                mobileMenu.classList.add('max-h-[500px]', 'opacity-100');
+            } else {
+                mobileMenu.classList.remove('max-h-[500px]', 'opacity-100');
+                mobileMenu.classList.add('max-h-0', 'opacity-0');
+            }
+        });
+    });
+</script>
