@@ -119,10 +119,7 @@ class PropertyForm
                                     ])
                                     ->default('subsidi')
                                     ->required(),
-                                TextInput::make('price')
-                                    ->label('Harga')
-                                    ->numeric()
-                                    ->prefix('Rp'),
+                                
                                 TextInput::make('building_area')
                                     ->label('Luas Bangunan (m²)')
                                     ->numeric(),
@@ -196,10 +193,7 @@ class PropertyForm
                                     ->default('tersedia')
                                     ->required(),
                                 TextInput::make('type_name')->label('Tipe'),
-                                TextInput::make('price')
-                                    ->label('Harga')
-                                    ->numeric()
-                                    ->prefix('Rp'),
+                                
                             ])
                             ->columns(3)
                             ->collapsed()

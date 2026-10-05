@@ -41,13 +41,14 @@
                         <div class="bg-purple-600 py-1.5 rounded">Premium: {{ $property->premium_unit }} Unit</div>
                         <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
                     </div>
+                    
                     <a href="#siteplan" class="block w-full text-center bg-teal hover:bg-darkteal text-white font-bold py-2.5 rounded-lg transition-colors shadow-sm">
                         Lihat Siteplan Digital
                     </a>
                     <a href="{{ route('order.create', $property->id) }}"
-    class="block w-full text-center mt-2 bg-orange hover:opacity-90 text-white font-bold py-2.5 rounded-lg transition-colors shadow-sm">
-    Pre-order Sekarang
-</a>
+                        class="block w-full text-center mt-2 bg-orange hover:opacity-90 text-white font-bold py-2.5 rounded-lg transition-colors shadow-sm">
+                        Pre-order Sekarang
+                    </a>
                 </div>
             </div>
         </div>
@@ -148,14 +149,10 @@
                                 </div>
 
                                 <div class="bg-[#FDFBF7] p-4 rounded-lg border border-teal/20">
-                                    <p class="text-xs text-gray-500 uppercase mb-1">Harga</p>
-                                    <p class="text-lg font-bold text-teal mb-4">
-                                        {{ $type->price ? 'Rp ' . number_format($type->price, 0, ',', '.') : 'Hubungi Developer' }}
-                                    </p>
-                                    <ul class="text-sm text-gray-700 space-y-2 font-medium">
-                                        <li class="flex justify-between border-b border-gray-200 pb-1"><span>Luas Bangunan</span><span>{{ $type->building_area ?? '-' }} m²</span></li>
-                                        <li class="flex justify-between border-b border-gray-200 pb-1"><span>Luas Lahan</span><span>{{ $type->land_area ?? '-' }} m²</span></li>
-                                        <li class="flex justify-between border-b border-gray-200 pb-1"><span>Kamar Tidur</span><span>{{ $type->bedrooms ?? '-' }}</span></li>
+                                    <ul class="text-sm text-gray-700 space-y-3 font-medium pt-2">
+                                        <li class="flex justify-between border-b border-gray-200 pb-2"><span>Luas Bangunan</span><span>{{ $type->building_area ?? '-' }} m²</span></li>
+                                        <li class="flex justify-between border-b border-gray-200 pb-2"><span>Luas Lahan</span><span>{{ $type->land_area ?? '-' }} m²</span></li>
+                                        <li class="flex justify-between border-b border-gray-200 pb-2"><span>Kamar Tidur</span><span>{{ $type->bedrooms ?? '-' }}</span></li>
                                         <li class="flex justify-between"><span>Kamar Mandi</span><span>{{ $type->bathrooms ?? '-' }}</span></li>
                                     </ul>
                                 </div>
@@ -197,7 +194,6 @@
                 'category' => $catLabel[$u->category] ?? $u->category,
                 'status' => $statusLabel[$u->status] ?? ucfirst($u->status),
                 'type' => $u->type_name ?? '-',
-                'price' => $u->price,
             ]]);
             
             $bloks = $property->units->map(fn ($u) => preg_replace('/\d+/', '', $u->code))->unique()->sort()->values();
@@ -217,7 +213,6 @@
                     <div class="flex justify-between"><span>Kategori:</span> <strong id="tip-cat" class="text-gray-800"></strong></div>
                     <div class="flex justify-between"><span>Tipe:</span> <strong id="tip-type" class="text-gray-800"></strong></div>
                     <div class="flex justify-between"><span>Status:</span> <strong id="tip-status" class="text-teal"></strong></div>
-                    <div class="flex justify-between border-t border-gray-100 pt-1 mt-1"><span>Harga:</span> <strong id="tip-price" class="text-green-600 font-bold"></strong></div>
                 </div>
             </div>
 
@@ -276,12 +271,11 @@
                                 </div>
                             </div>
                             <div class="text-right">
-    <p id="u-price" class="text-lg font-extrabold text-green-600"></p>
-    <a id="u-order" href="#"
-        class="hidden mt-2 inline-block bg-teal hover:bg-darkteal text-white text-sm font-bold px-4 py-2 rounded-lg">
-        Pesan kavling ini
-    </a>
-</div>
+                                <a id="u-order" href="#"
+                                    class="hidden mt-2 inline-block bg-teal hover:bg-darkteal text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors shadow-sm">
+                                    Pesan kavling ini
+                                </a>
+                            </div>
                         </div>
 
                         <!-- SCRIPT INTERAKTIF SITEPLAN -->
@@ -337,7 +331,6 @@
                                                 document.getElementById('tip-cat').textContent = u.category;
                                                 document.getElementById('tip-type').textContent = u.type;
                                                 document.getElementById('tip-status').textContent = u.status;
-                                                document.getElementById('tip-price').textContent = u.price ? 'Rp ' + Number(u.price).toLocaleString('id-ID') : 'Hubungi Developer';
                                                 
                                                 tooltip.classList.remove('hidden');
                                                 el.style.stroke = '#0F172A';
@@ -362,14 +355,15 @@
                                                 document.getElementById('u-cat').textContent = u.category;
                                                 document.getElementById('u-status').textContent = u.status;
                                                 document.getElementById('u-type').textContent = u.type;
-                                                document.getElementById('u-price').textContent = u.price ? 'Rp ' + Number(u.price).toLocaleString('id-ID') : 'Hubungi Developer';
+                                                
                                                 var orderBtn = document.getElementById('u-order');
-if (u.raw_status === 'tersedia') {
-    orderBtn.href = @json(route('order.create', $property->id)) + '?unit=' + encodeURIComponent(code);
-    orderBtn.classList.remove('hidden');
-} else {
-    orderBtn.classList.add('hidden');
-}
+                                                if (u.raw_status === 'tersedia' || u.raw_status === 'kavling') {
+                                                    orderBtn.href = @json(route('order.create', $property->id)) + '?unit=' + encodeURIComponent(code);
+                                                    orderBtn.classList.remove('hidden');
+                                                } else {
+                                                    orderBtn.classList.add('hidden');
+                                                }
+
                                                 document.getElementById('unit-info').classList.remove('hidden');
                                             });
                                         });
