@@ -54,28 +54,36 @@ class PropertyForm
                     ->columnSpanFull(),
 
                 Section::make('Peta & Kantor Pemasaran')
-                    ->schema([
-                        TextInput::make('google_maps_url')
-                            ->label('Link Google Maps')
-                            ->placeholder('https://maps.app.goo.gl/...')
-                            ->maxLength(2000)
-                            ->dehydrateStateUsing(function ($state) {
-                                if (blank($state)) {
-                                    return null;
-                                }
-                                $state = trim($state);
-                                return preg_match('/^https?:\/\//i', $state) ? $state : 'https://' . $state;
-                            })
-                            ->columnSpanFull(),
-                        TextInput::make('marketing_phone')->label('Telepon'),
-                        TextInput::make('marketing_whatsapp')
-                            ->label('No WhatsApp')
-                            ->placeholder('628123456789'),
-                        TextInput::make('marketing_email')->label('Email')->email(),
-                        TextInput::make('marketing_address')->label('Alamat Kantor Pemasaran'),
-                    ])
-                    ->columns(2)
-                    ->columnSpanFull(),
+    ->schema([
+        TextInput::make('google_maps_url')
+            ->label('Link Google Maps')
+            ->placeholder('https://maps.app.goo.gl/...')
+            ->maxLength(2000)
+            ->dehydrateStateUsing(function ($state) {
+                if (blank($state)) {
+                    return null;
+                }
+                $state = trim($state);
+                return preg_match('/^https?:\/\//i', $state) ? $state : 'https://' . $state;
+            })
+            ->columnSpanFull(),
+        TextInput::make('latitude')
+            ->label('Latitude')
+            ->numeric()
+            ->placeholder('-6.9013980'),
+        TextInput::make('longitude')
+            ->label('Longitude')
+            ->numeric()
+            ->placeholder('109.7162400'),
+        TextInput::make('marketing_phone')->label('Telepon'),
+        TextInput::make('marketing_whatsapp')
+            ->label('No WhatsApp')
+            ->placeholder('628123456789'),
+        TextInput::make('marketing_email')->label('Email')->email(),
+        TextInput::make('marketing_address')->label('Alamat Kantor Pemasaran'),
+    ])
+    ->columns(2)
+    ->columnSpanFull(),
 
                 Section::make('Foto Lokasi')
                     ->schema([
@@ -119,10 +127,7 @@ class PropertyForm
                                     ])
                                     ->default('subsidi')
                                     ->required(),
-                                TextInput::make('price')
-                                    ->label('Harga')
-                                    ->numeric()
-                                    ->prefix('Rp'),
+                                
                                 TextInput::make('building_area')
                                     ->label('Luas Bangunan (m²)')
                                     ->numeric(),
@@ -196,10 +201,7 @@ class PropertyForm
                                     ->default('tersedia')
                                     ->required(),
                                 TextInput::make('type_name')->label('Tipe'),
-                                TextInput::make('price')
-                                    ->label('Harga')
-                                    ->numeric()
-                                    ->prefix('Rp'),
+                                
                             ])
                             ->columns(3)
                             ->collapsed()
