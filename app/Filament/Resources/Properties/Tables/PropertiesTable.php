@@ -32,7 +32,7 @@ class PropertiesTable
                     ->label('Unit Subsidi')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('komersil_unit')
+                TextColumn::make('menengah_unit')
                     ->label('Unit Menengah')
                     ->numeric()
                     ->sortable(),

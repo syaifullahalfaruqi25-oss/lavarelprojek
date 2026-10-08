@@ -17,8 +17,8 @@ class PerumahanController extends Controller
 
             if ($jenis == 'Subsidi') {
                 $query->where('subsidi_unit', '>', 0);
-            } elseif ($jenis == 'Komersil') {
-                $query->where('komersil_unit', '>', 0);
+            } elseif ($jenis == 'Menengah') {
+                $query->where('menengah_unit', '>', 0);
             } elseif ($jenis == 'Premium') {
                 $query->where('premium_unit', '>', 0);
             }

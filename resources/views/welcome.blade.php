@@ -650,7 +650,7 @@
                                                  px-2.5 py-1.5
                                                  rounded-md">
 
-                                    {{ $prop->komersil_unit }}
+                                    {{ $prop->menengah_unit }}
                                     Unit menengah
 
                                 </span>

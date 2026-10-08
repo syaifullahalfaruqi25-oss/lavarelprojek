@@ -36,7 +36,7 @@
                     <div class="grid grid-cols-2 gap-2 text-xs font-bold text-white text-center mb-4">
                         <div class="bg-orange py-1.5 rounded">Subsidi: {{ $property->subsidi_unit }} Unit</div>
                         <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
-                        <div class="bg-darknavy py-1.5 rounded">Menengah: {{ $property->komersil_unit }} Unit</div>
+                        <div class="bg-darknavy py-1.5 rounded">Menengah: {{ $property->menengah_unit }} Unit</div>
                         <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
                         <div class="bg-purple-600 py-1.5 rounded">Premium: {{ $property->premium_unit }} Unit</div>
                         <div class="bg-gray-400 py-1.5 rounded">Terjual: 0 Unit</div>
