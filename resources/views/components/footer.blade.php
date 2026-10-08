@@ -1,31 +1,21 @@
 <!-- Footer Section -->
-<footer class="bg-[#131F35] pt-16 pb-8 border-t border-white/10 mt-20 relative overflow-hidden">
+<footer class="bg-black text-white pt-16 pb-8 mt-20 border-t border-[#C9A227]/30">
 
-    <!-- Ornamen Latar -->
-    <div
-        class="absolute top-0 right-0 w-64 h-64 bg-[#2A8575] opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
-    </div>
-    <div
-        class="absolute bottom-0 left-0 w-64 h-64 bg-[#4FD1C5] opacity-5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2">
-    </div>
+    <div class="max-w-7xl mx-auto px-6">
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <!-- Main Footer -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-
-            {{-- KOLOM 1: Brand & Deskripsi --}}
-            <div class="flex flex-col gap-4">
+            {{-- KOLOM 1: Brand --}}
+            <div class="flex flex-col gap-5">
 
                 <!-- Logo -->
-                <a href="/" class="flex items-center gap-3 mb-2">
+                <a href="/" class="flex items-center gap-3 w-fit">
 
-                    <div
-                        class="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm">
-
+                    <div class="w-11 h-11 bg-white rounded-lg flex items-center justify-center overflow-hidden">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo SolusiProperti"
                             class="w-full h-full object-contain"
-                            onerror="this.outerHTML='<span class=\'text-[#1B2A47] font-extrabold text-xl\'>S</span>'">
-
+                            onerror="this.outerHTML='<span class=\'text-black font-bold text-xl\'>S</span>'">
                     </div>
 
                     <div class="flex flex-col leading-none">
@@ -34,7 +24,7 @@
                             SOLUSIPROPERTI
                         </span>
 
-                        <span class="text-[#4FD1C5] text-[9px] tracking-[0.2em] uppercase mt-1">
+                        <span class="text-[#C9A227] text-[9px] tracking-[0.25em] uppercase mt-1">
                             PROPERTY
                         </span>
 
@@ -42,8 +32,7 @@
 
                 </a>
 
-
-                <p class="text-gray-400 text-sm leading-relaxed">
+                <p class="text-gray-400 text-sm leading-7 max-w-sm">
                     Portal informasi dan penyediaan perumahan terpadu.
                     Membantu masyarakat Indonesia menemukan hunian impian,
                     baik subsidi maupun komersil, dengan aman dan tepercaya.
@@ -52,52 +41,36 @@
             </div>
 
 
-            {{-- KOLOM 2: Tautan Cepat --}}
+            {{-- KOLOM 2: Peta Situs --}}
             <div>
 
-                <h3 class="text-white font-semibold mb-5">
+                <h3 class="text-white font-bold text-base mb-6">
                     Peta Situs
                 </h3>
 
-                <ul class="flex flex-col gap-3">
+                <ul class="flex flex-col gap-4">
 
                     <li>
-                        <a href="/"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="/" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             Beranda
-
                         </a>
                     </li>
 
                     <li>
-                        <a href="/perumahan"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="/perumahan" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             Cari Perumahan
-
                         </a>
                     </li>
 
                     <li>
-                        <a href="#"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="#" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             Peta Sebaran Lokasi
-
                         </a>
                     </li>
 
                     <li>
-                        <a href="#"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="#" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             Asosiasi Pengembang (REI)
-
                         </a>
                     </li>
 
@@ -106,52 +79,36 @@
             </div>
 
 
-            {{-- KOLOM 3: Bantuan & Layanan --}}
+            {{-- KOLOM 3: Bantuan --}}
             <div>
 
-                <h3 class="text-white font-semibold mb-5">
+                <h3 class="text-white font-bold text-base mb-6">
                     Bantuan & Legal
                 </h3>
 
-                <ul class="flex flex-col gap-3">
+                <ul class="flex flex-col gap-4">
 
                     <li>
-                        <a href="#"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="#" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             Panduan Pengguna
-
                         </a>
                     </li>
 
                     <li>
-                        <a href="#"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="#" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             FAQ KPR Subsidi
-
                         </a>
                     </li>
 
                     <li>
-                        <a href="#"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="#" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             Syarat & Ketentuan
-
                         </a>
                     </li>
 
                     <li>
-                        <a href="#"
-                            class="text-gray-400 hover:text-[#4FD1C5] text-sm transition-colors flex items-center gap-2">
-
-                            <span class="text-gray-600 text-xs">›</span>
+                        <a href="#" class="text-gray-400 hover:text-[#C9A227] text-sm transition-colors">
                             Kebijakan Privasi
-
                         </a>
                     </li>
 
@@ -163,16 +120,16 @@
             {{-- KOLOM 4: Hubungi Kami --}}
             <div>
 
-                <h3 class="text-white font-semibold mb-5">
+                <h3 class="text-white font-bold text-base mb-6">
                     Hubungi Kami
                 </h3>
 
-                <ul class="flex flex-col gap-4 text-sm text-gray-400">
+                <ul class="flex flex-col gap-5 text-sm text-gray-400">
 
                     <!-- Alamat -->
                     <li class="flex items-start gap-3">
 
-                        <svg class="w-5 h-5 text-[#2A8575] shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        <svg class="w-5 h-5 text-[#C9A227] shrink-0 mt-0.5" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
 
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -185,9 +142,9 @@
 
                         </svg>
 
-                        <span>
-                            Jl. Pembangunan No. 123,
-                            Kabupaten Pemalang,
+                        <span class="leading-6">
+                            Jl. Pembangunan No. 123,<br>
+                            Kabupaten Pemalang,<br>
                             Jawa Tengah
                         </span>
 
@@ -197,7 +154,7 @@
                     <!-- Telepon -->
                     <li class="flex items-center gap-3">
 
-                        <svg class="w-5 h-5 text-[#2A8575] shrink-0" fill="none" stroke="currentColor"
+                        <svg class="w-5 h-5 text-[#C9A227] shrink-0" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
 
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -216,7 +173,7 @@
                     <!-- Email -->
                     <li class="flex items-center gap-3">
 
-                        <svg class="w-5 h-5 text-[#2A8575] shrink-0" fill="none" stroke="currentColor"
+                        <svg class="w-5 h-5 text-[#C9A227] shrink-0" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
 
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -238,13 +195,13 @@
         </div>
 
 
-        {{-- BOTTOM FOOTER: Copyright & Sosmed --}}
-        <div class="mt-12 pt-8 border-t border-white/10
+        {{-- BOTTOM FOOTER --}}
+        <div class="mt-14 pt-7 border-t border-white/10
                     flex flex-col md:flex-row
                     items-center justify-between
-                    gap-4">
+                    gap-5">
 
-            <p class="text-gray-500 text-xs text-center md:text-left">
+            <p class="text-gray-500 text-xs text-center md:text-left leading-6">
 
                 &copy; {{ date('Y') }} SolusiProperti.
                 Dilindungi Hak Cipta.
@@ -259,15 +216,15 @@
             </p>
 
 
-            <!-- Social Media Icons -->
-            <div class="flex items-center gap-4">
+            <!-- Social Media -->
+            <div class="flex items-center gap-3">
 
                 <!-- Facebook -->
-                <a href="#" class="w-8 h-8 rounded-full bg-white/5
+                <a href="#" class="w-9 h-9 rounded-full border border-white/10
                            flex items-center justify-center
                            text-gray-400
-                           hover:bg-[#2A8575]
-                           hover:text-white
+                           hover:border-[#C9A227]
+                           hover:text-[#C9A227]
                            transition-all">
 
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -282,17 +239,17 @@
 
 
                 <!-- Instagram -->
-                <a href="#" class="w-8 h-8 rounded-full bg-white/5
+                <a href="#" class="w-9 h-9 rounded-full border border-white/10
                            flex items-center justify-center
                            text-gray-400
-                           hover:bg-[#2A8575]
-                           hover:text-white
+                           hover:border-[#C9A227]
+                           hover:text-[#C9A227]
                            transition-all">
 
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
 
                         <path fill-rule="evenodd"
-                            d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-2.784.06-3.808.049-1.064.218-1.363.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.465 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                            d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-2.784.06-3.808.049-1.064.218-1.363.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.465 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-.8.398-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398.8-.398.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
                             clip-rule="evenodd">
                         </path>
 

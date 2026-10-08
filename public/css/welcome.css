@@ -1,0 +1,352 @@
+/* =========================================================
+   SOLUSI PROPERTI — LANDING PAGE
+   Tema: Black • Gold • White
+   ========================================================= */
+
+
+/* =========================================================
+   1. HERO
+   ========================================================= */
+
+section:first-of-type {
+    background-color: #080808 !important;
+}
+
+/* Overlay hero */
+section:first-of-type .bg-gradient-to-r {
+    background: linear-gradient(
+        90deg,
+        rgba(8, 8, 8, 0.96) 0%,
+        rgba(8, 8, 8, 0.78) 45%,
+        rgba(8, 8, 8, 0.18) 100%
+    ) !important;
+}
+
+section:first-of-type h1 {
+    font-size: 3.5rem !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.03em !important;
+}
+
+section:first-of-type h1 span {
+    color: #d4af37 !important;
+}
+
+section:first-of-type p {
+    color: #e5e5e5 !important;
+    font-size: 1.05rem !important;
+    line-height: 1.75 !important;
+}
+
+section:first-of-type p strong {
+    color: #ffffff !important;
+}
+
+/* Tombol Hero */
+section:first-of-type a[href*="perumahan"] {
+    background-color: #d4af37 !important;
+    color: #080808 !important;
+    border: 1px solid #d4af37 !important;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.18);
+}
+
+section:first-of-type a[href*="perumahan"]:hover {
+    background-color: #f0cf5a !important;
+    border-color: #f0cf5a !important;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* Garis Hero */
+section:first-of-type .border-t {
+    border-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Info Hero */
+section:first-of-type h3 {
+    color: #ffffff !important;
+}
+
+section:first-of-type .text-gray-300 {
+    color: #bdbdbd !important;
+}
+
+
+/* =========================================================
+   2. SECTION KENAPA SOLUSI PROPERTI
+   ========================================================= */
+
+section:nth-of-type(2) {
+    background-color: #ffffff !important;
+}
+
+/* Label kecil */
+section:nth-of-type(2) > div > div > div:first-child > p {
+    color: #b08d24 !important;
+}
+
+/* Heading */
+section:nth-of-type(2) h2 {
+    color: #111111 !important;
+    font-size: 2.8rem !important;
+    line-height: 1.15 !important;
+}
+
+section:nth-of-type(2) h2 span {
+    color: #b08d24 !important;
+}
+
+/* Deskripsi */
+section:nth-of-type(2) > div > div > div:first-child > p:last-child {
+    color: #666666 !important;
+}
+
+/* Card */
+section:nth-of-type(2) .bg-\[\#F5F7FA\] {
+    background-color: #fafafa !important;
+    border: 1px solid #e8e8e8 !important;
+    border-radius: 16px !important;
+}
+
+section:nth-of-type(2) .bg-\[\#F5F7FA\]:hover {
+    border-color: rgba(212, 175, 55, 0.45) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Icon */
+section:nth-of-type(2) svg {
+    color: #d4af37 !important;
+}
+
+/* Judul card */
+section:nth-of-type(2) h3 {
+    color: #171717 !important;
+}
+
+/* Isi card */
+section:nth-of-type(2) .text-gray-500 {
+    color: #707070 !important;
+}
+
+
+/* =========================================================
+   3. KATALOG PERUMAHAN
+   ========================================================= */
+
+section:nth-of-type(3) {
+    background-color: #f7f7f5 !important;
+}
+
+/* Label */
+section:nth-of-type(3) > div > div:first-child > p {
+    color: #b08d24 !important;
+}
+
+/* Heading katalog */
+section:nth-of-type(3) h2 {
+    color: #111111 !important;
+    font-size: 2.8rem !important;
+    line-height: 1.15 !important;
+}
+
+section:nth-of-type(3) h2 span {
+    color: #b08d24 !important;
+}
+
+/* Deskripsi katalog */
+section:nth-of-type(3) h2 ~ p {
+    color: #666666 !important;
+}
+
+/* Tombol Lihat Semua */
+section:nth-of-type(3) a[href*="perumahan"] {
+    background-color: #111111 !important;
+    color: #d4af37 !important;
+    border: 1px solid #111111 !important;
+}
+
+section:nth-of-type(3) a[href*="perumahan"]:hover {
+    background-color: #d4af37 !important;
+    color: #111111 !important;
+}
+
+
+/* =========================================================
+   4. FILTER
+   ========================================================= */
+
+section:nth-of-type(3) form {
+    background-color: transparent;
+}
+
+/* Box filter */
+section:nth-of-type(3) form {
+    color: #111111;
+}
+
+/* Judul filter */
+section:nth-of-type(3) h3 {
+    color: #171717 !important;
+}
+
+/* Icon filter */
+section:nth-of-type(3) form svg {
+    color: #d4af37 !important;
+}
+
+/* Select */
+section:nth-of-type(3) select {
+    background-color: #ffffff !important;
+    color: #444444 !important;
+    border-color: #dddddd !important;
+}
+
+section:nth-of-type(3) select:focus {
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.12) !important;
+}
+
+/* Reset filter */
+section:nth-of-type(3) a[href*="/perumahan"]:not([href*="id"]) {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+}
+
+section:nth-of-type(3) a[href*="/perumahan"]:not([href*="id"]):hover {
+    background-color: #d4af37 !important;
+    color: #111111 !important;
+}
+
+
+/* =========================================================
+   5. CARD PROPERTI
+   ========================================================= */
+
+section:nth-of-type(3) .group {
+    background-color: #ffffff !important;
+    border-color: #e5e5e5 !important;
+    border-radius: 14px !important;
+}
+
+section:nth-of-type(3) .group:hover {
+    border-color: rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Badge lokasi */
+section:nth-of-type(3) .group .bg-\[\#3A8F84\] {
+    background-color: #d4af37 !important;
+    color: #111111 !important;
+}
+
+/* Badge rumah */
+section:nth-of-type(3) .group .bg-\[\#172744\] {
+    background-color: #111111 !important;
+    color: #d4af37 !important;
+}
+
+/* Nama properti */
+section:nth-of-type(3) .group h3 {
+    color: #171717 !important;
+}
+
+/* Developer */
+section:nth-of-type(3) .group .text-\[\#3A8F84\] {
+    color: #b08d24 !important;
+}
+
+/* Lokasi */
+section:nth-of-type(3) .group .text-gray-500 {
+    color: #777777 !important;
+}
+
+/* Icon lokasi */
+section:nth-of-type(3) .group svg {
+    color: #b08d24 !important;
+}
+
+
+/* =========================================================
+   6. BADGE UNIT
+   ========================================================= */
+
+section:nth-of-type(3) .group span {
+    border-radius: 5px !important;
+}
+
+/* Semua badge dibuat gold */
+section:nth-of-type(3) .group span[class*="bg-"] {
+    background-color: #f7f1df !important;
+    color: #9b7918 !important;
+    border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+
+/* =========================================================
+   7. BUTTON DETAIL
+   ========================================================= */
+
+section:nth-of-type(3) .group a[href*="/perumahan/"] {
+    background-color: #111111 !important;
+    color: #d4af37 !important;
+}
+
+section:nth-of-type(3) .group a[href*="/perumahan/"]:hover {
+    background-color: #d4af37 !important;
+    color: #111111 !important;
+}
+
+
+/* =========================================================
+   8. FONT SIZE CARD
+   ========================================================= */
+
+section:nth-of-type(3) .group h3 {
+    font-size: 1rem !important;
+    line-height: 1.35 !important;
+}
+
+section:nth-of-type(3) .group p {
+    line-height: 1.6 !important;
+}
+
+
+/* =========================================================
+   9. MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    /* Hero */
+    section:first-of-type h1 {
+        font-size: 2.5rem !important;
+        line-height: 1.08 !important;
+    }
+
+    section:first-of-type p {
+        font-size: 0.95rem !important;
+    }
+
+    /* Heading section */
+    section:nth-of-type(2) h2,
+    section:nth-of-type(3) h2 {
+        font-size: 2rem !important;
+    }
+
+    /* Spacing */
+    section:nth-of-type(2),
+    section:nth-of-type(3) {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+
+}
+
+
+/* =========================================================
+   10. GOLD SELECTION
+   ========================================================= */
+
+::selection {
+    background-color: #d4af37;
+    color: #111111;
+}

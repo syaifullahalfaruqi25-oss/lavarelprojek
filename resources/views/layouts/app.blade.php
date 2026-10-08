@@ -8,7 +8,8 @@
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+
     <!-- Konfigurasi Warna Khusus -->
     <script>
         tailwind.config = {

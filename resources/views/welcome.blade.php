@@ -36,17 +36,17 @@
                 <div class="max-w-3xl translate-y-12">
 
                     <!-- JUDUL -->
-                    <h1 class="text-5xl sm:text-6xl lg:text-7xl
-                                       font-extrabold
+                    <h1 class="text-xl sm:text-6xl lg:text-6xl
+                                       font-bold
                                        leading-[1.05]
                                        tracking-tight
                                        text-white
                                        mb-6">
 
-                        Temukan Hunian
+                        Beli properti hanya dengan
 
                         <span class="block text-[#3A8F84]">
-                            Impianmu.
+                            Sekali klik.
                         </span>
 
                     </h1>
@@ -58,7 +58,7 @@
                                       max-w-2xl
                                       mb-9">
 
-                        Jelajahi berbagai pilihan perumahan dengan informasi
+                        Jelajahi berbagai pilihan properti dengan informasi
                         lokasi, developer, dan tipe hunian yang mudah ditemukan
                         bersama
                         <strong class="text-white">
