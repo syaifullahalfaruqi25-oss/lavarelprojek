@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 
 // Route untuk Beranda (Welcome) + Filter Lengkap
 Route::get('/', function (Request $request) {
@@ -122,3 +123,8 @@ Route::get('/masuk-paksa', function () {
 Route::get('/tentang-kami', function () {
     return view('tentang');
 });
+
+Route::get('/kontak', [ContactController::class, 'show'])->name('contact.index');
+Route::post('/kontak', [ContactController::class, 'store'])
+    ->middleware('throttle:5,10')
+    ->name('contact.store');

@@ -29,8 +29,8 @@
                     class="px-5 py-3 rounded-xl transition-all duration-300 {{ request()->is('tentang-kami*') ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10' }}">
                     Tentang Kami
                 </a>
-                <a href="#kontak"
-                    class="px-5 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300">
+                <a href="{{ url('/kontak') }}"
+                    class="px-5 py-3 rounded-xl transition-all duration-300 {{ request()->is('kontak*') ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10' }}">
                     Kontak
                 </a>
             </div>
@@ -65,7 +65,7 @@
                 <a href="{{ url('/') }}" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Beranda</a>
                 <a href="{{ url('/perumahan') }}" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Perumahan</a>
                 <a href="{{ url('/tentang-kami') }}" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Tentang Kami</a>
-                <a href="#kontak" class="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition">Kontak</a>
+                <a href="{{ url('/kontak') }}" class="block px-4 py-3 rounded-xl transition {{ request()->is('kontak*') ? 'text-white bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10' }}">Kontak</a>
 
                 {{-- SEARCH MOBILE --}}
                 <form action="{{ url('/perumahan') }}" method="GET" class="relative pt-2">
