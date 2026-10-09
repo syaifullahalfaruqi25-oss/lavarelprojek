@@ -35,11 +35,13 @@
                         <dl class="space-y-5">
                             <div>
                                 <dt class="text-sm font-semibold text-[#23466F]">Alamat</dt>
-                                <dd class="mt-1 whitespace-pre-line text-sm leading-relaxed text-gray-600">{{ $contact?->marketing_address ?: 'Belum tersedia' }}</dd>
+                                <dd class="mt-1 whitespace-pre-line text-sm leading-relaxed text-gray-600">Perumahan The Royale Calista Blok B30, Kauman, Batang</dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-semibold text-[#23466F]">Telepon</dt>
-                                <dd class="mt-1 text-sm text-gray-600">{{ $contact?->marketing_phone ?: 'Belum tersedia' }}</dd>
+                                <dd class="mt-1 text-sm text-gray-600">
+                                    <a href="tel:+6289665918077" class="hover:text-[#23466F]">+62 896-6591-8077</a>
+                                </dd>
                             </div>
                             <div>
                                 <dt class="text-sm font-semibold text-[#23466F]">Email</dt>
@@ -53,7 +55,7 @@
 
                         @if ($whatsappNumber !== '')
                             <a
-                                href="https://wa.me/{{ $whatsappNumber }}"
+                                href="https://wa.me/6289665918077"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 class="mt-7 inline-flex w-full items-center justify-center rounded-xl bg-[#2A8575] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#226C60]"

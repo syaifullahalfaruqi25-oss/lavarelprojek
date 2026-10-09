@@ -143,9 +143,8 @@
                         </svg>
 
                         <span class="leading-6">
-                            Jl. Pembangunan No. 123,<br>
-                            Kabupaten Pemalang,<br>
-                            Jawa Tengah
+                            Perumahan The Royale Calista Blok B30,<br>
+                            Kauman, Batang
                         </span>
 
                     </li>
@@ -163,9 +162,9 @@
 
                         </svg>
 
-                        <span>
-                            (021) 1234-5678
-                        </span>
+                        <a href="tel:+6289665918077" class="hover:text-white transition-colors">
+                            +62 896-6591-8077
+                        </a>
 
                     </li>
 
