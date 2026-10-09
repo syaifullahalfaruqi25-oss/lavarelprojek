@@ -27,8 +27,16 @@ Route::get('/', function (Request $request) {
         $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
 
-    if ($request->filled('kecamatan')) {
-        $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
+    if ($request->filled('daerah')) {
+        $daerah = trim($request->daerah);
+        $daerahParts = explode('-', $daerah, 2);
+
+        if (count($daerahParts) === 2) {
+            $query->where(function ($q) use ($daerahParts) {
+                $q->where('location', 'Ilike', '%' . $daerahParts[0] . '%')
+                    ->orWhere('location', 'Ilike', '%' . $daerahParts[1] . '%');
+            });
+        }
     }
 
     if ($request->filled('developer')) {
@@ -61,8 +69,16 @@ Route::get('/perumahan', function (Request $request) {
         $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
 
-    if ($request->filled('kecamatan')) {
-        $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
+    if ($request->filled('daerah')) {
+        $daerah = trim($request->daerah);
+        $daerahParts = explode('-', $daerah, 2);
+
+        if (count($daerahParts) === 2) {
+            $query->where(function ($q) use ($daerahParts) {
+                $q->where('location', 'Ilike', '%' . $daerahParts[0] . '%')
+                    ->orWhere('location', 'Ilike', '%' . $daerahParts[1] . '%');
+            });
+        }
     }
 
     if ($request->filled('developer')) {

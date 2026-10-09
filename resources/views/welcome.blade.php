@@ -437,8 +437,8 @@
                     </select>
 
 
-                    <!-- KECAMATAN -->
-                    <select name="kecamatan" onchange="this.form.submit()" class="w-full border border-gray-200
+                    <!-- DAERAH -->
+                    <select name="daerah" onchange="this.form.submit()" class="w-full border border-gray-200
                                bg-[#F8F9FA]
                                rounded-lg
                                px-4 py-3
@@ -450,19 +450,23 @@
                                transition">
 
                         <option value="">
-                            Pilih Kecamatan
+                            Pilih Daerah
                         </option>
 
-                        <option value="Banyuputih" {{ request('kecamatan') == 'Banyuputih' ? 'selected' : '' }}>
-                            Banyuputih
+                        <option value="Lebo-Candiareng" {{ request('daerah') == 'Lebo-Candiareng' ? 'selected' : '' }}>
+                            Lebo - Candiareng
                         </option>
 
-                        <option value="Pemalang" {{ request('kecamatan') == 'Pemalang' ? 'selected' : '' }}>
-                            Pemalang
+                        <option value="Tragung-Lawangaji" {{ request('daerah') == 'Tragung-Lawangaji' ? 'selected' : '' }}>
+                            Tragung - Lawangaji
                         </option>
 
-                        <option value="Mamuju" {{ request('kecamatan') == 'Mamuju' ? 'selected' : '' }}>
-                            Mamuju
+                        <option value="Kandeman-Tulis" {{ request('daerah') == 'Kandeman-Tulis' ? 'selected' : '' }}>
+                            Kandeman - Tulis
+                        </option>
+
+                        <option value="Bandar-Wonotunggal" {{ request('daerah') == 'Bandar-Wonotunggal' ? 'selected' : '' }}>
+                            Bandar - Wonotunggal
                         </option>
 
                     </select>

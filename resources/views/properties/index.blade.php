@@ -34,14 +34,15 @@
                     </select>
 
                     <select
-                        name="kecamatan"
+                        name="daerah"
                         onchange="this.form.submit()"
                         class="flex-1 rounded-md border border-gray-300 px-4 py-2.5 text-sm text-gray-600 focus:ring-[#1877F2]"
                     >
-                        <option value="">Pilih Kecamatan</option>
-                        <option value="Banyuputih" {{ request('kecamatan') == 'Banyuputih' ? 'selected' : '' }}>Banyuputih</option>
-                        <option value="Kandeman" {{ request('kecamatan') == 'Kandeman' ? 'selected' : '' }}>Kandeman</option>
-                        <option value="Blado" {{ request('kecamatan') == 'Blado' ? 'selected' : '' }}>Blado</option>
+                        <option value="">Pilih Daerah</option>
+                        <option value="Lebo-Candiareng" {{ request('daerah') == 'Lebo-Candiareng' ? 'selected' : '' }}>Lebo - Candiareng</option>
+                        <option value="Tragung-Lawangaji" {{ request('daerah') == 'Tragung-Lawangaji' ? 'selected' : '' }}>Tragung - Lawangaji</option>
+                        <option value="Kandeman-Tulis" {{ request('daerah') == 'Kandeman-Tulis' ? 'selected' : '' }}>Kandeman - Tulis</option>
+                        <option value="Bandar-Wonotunggal" {{ request('daerah') == 'Bandar-Wonotunggal' ? 'selected' : '' }}>Bandar - Wonotunggal</option>
                     </select>
 
                     <select

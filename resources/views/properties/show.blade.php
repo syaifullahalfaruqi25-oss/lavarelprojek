@@ -197,11 +197,15 @@
             $unitsJson = $property->units->mapWithKeys(fn ($u) => [$u->code => [
                 'raw_status' => strtolower(trim($u->status ?? 'tersedia')),
                 'category' => $catLabel[$u->category] ?? $u->category,
+                'cat_key' => $u->category,
                 'status' => $statusLabel[$u->status] ?? ucfirst($u->status),
                 'type' => $u->type_name ?? '-',
             ]]);
-            
-            $bloks = $property->units->map(fn ($u) => preg_replace('/\d+/', '', $u->code))->unique()->sort()->values();
+
+            $bloks = $property->units->map(function ($u) {
+                preg_match('/^[A-Za-z]+/', $u->code, $m);
+                return $m[0] ?? '';
+            })->filter()->unique()->sort()->values();
         @endphp
 
         <div id="siteplan" class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden relative">
@@ -227,19 +231,18 @@
                     @foreach ($catLabel as $cat => $label)
                         @php $list = $property->units->where('category', $cat); @endphp
                         @if ($list->count())
-                            <div class="rounded-lg border border-gray-200 p-3 bg-white shadow-xs">
+                            <div class="legend-card rounded-lg border border-gray-200 p-3 bg-white shadow-xs" data-cat="{{ $cat }}">
                                 <p class="text-xs font-bold text-center text-gray-600 uppercase mb-2">{{ $label }}</p>
                                 <div class="space-y-1 text-[11px] font-bold text-white text-center">
                                     @foreach ($statusLabel as $key => $text)
                                         @php $count = $list->where('status', $key)->count(); @endphp
-                                        @if($count > 0)
-                                            <div class="py-1 rounded px-2 flex justify-between items-center"
-                                                 style="background: {{ $key === 'tersedia' ? $tersediaColor[$cat] : $statusColor[$key] }};
-                                                        {{ $key === 'tersedia' && $cat === 'subsidi' ? 'color:#713F12' : '' }}">
-                                                <span>{{ $text }}</span>
-                                                <span class="bg-black/20 px-1.5 py-0.5 rounded text-[10px]">{{ $count }}</span>
-                                            </div>
-                                        @endif
+                                        <div class="legend-row py-1 rounded px-2 flex justify-between items-center" data-cat="{{ $cat }}" data-status="{{ $key }}"
+                                             style="background: {{ $key === 'tersedia' ? $tersediaColor[$cat] : $statusColor[$key] }};
+                                                    {{ $key === 'tersedia' && $cat === 'subsidi' ? 'color:#713F12' : '' }}
+                                                    {{ $count === 0 ? 'display:none;' : '' }}">
+                                            <span>{{ $text }}</span>
+                                            <span class="legend-count bg-black/20 px-1.5 py-0.5 rounded text-[10px]">{{ $count }}</span>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -289,9 +292,17 @@
                                 var units = @json($unitsJson);
                                 var statusColor = @json($statusColor);
                                 var tersediaColor = @json($tersediaColor);
-                                var catLabel = @json($catLabel);
                                 var box = document.getElementById('siteplan-box');
+                                var siteplan = document.getElementById('siteplan');
                                 var tooltip = document.getElementById('siteplan-tooltip');
+                                var unitInfo = document.getElementById('unit-info');
+                                var filter = document.getElementById('blok-filter');
+                                var selectedCode = null;
+                                var root = null;
+                                var originalViewBox = null;
+                                var animationFrame = null;
+
+                                if (!box || !siteplan) return;
 
                                 function paint(el, color) {
                                     var shapes = el.matches('path,rect,polygon,circle,ellipse')
@@ -302,22 +313,155 @@
                                     });
                                 }
 
+                                function updateLegend(block) {
+                                    // Hitung ulang legenda sesuai blok yang sedang dipilih.
+                                    var counts = {};
+                                    Object.keys(units).forEach(function (code) {
+                                        var unit = units[code];
+                                        var blockMatch = code.match(/^[A-Za-z]+/);
+                                        if (!blockMatch || (block && blockMatch[0] !== block)) return;
+
+                                        var key = unit.cat_key + '|' + unit.raw_status;
+                                        counts[key] = (counts[key] || 0) + 1;
+                                    });
+
+                                    siteplan.querySelectorAll('.legend-row').forEach(function (row) {
+                                        var key = row.dataset.cat + '|' + row.dataset.status;
+                                        var count = counts[key] || 0;
+                                        var countElement = row.querySelector('.legend-count');
+                                        if (countElement) countElement.textContent = count;
+                                        row.style.display = count > 0 ? '' : 'none';
+                                    });
+
+                                    siteplan.querySelectorAll('.legend-card').forEach(function (card) {
+                                        var total = 0;
+                                        Object.keys(counts).forEach(function (key) {
+                                            if (key.indexOf(card.dataset.cat + '|') === 0) total += counts[key];
+                                        });
+                                        card.style.display = total > 0 ? '' : 'none';
+                                    });
+                                }
+
+                                function animateViewBox(target) {
+                                    if (!root || !originalViewBox || !root.viewBox || !root.viewBox.baseVal) return;
+                                    // Hentikan animasi lama agar zoom mengikuti pilihan terbaru.
+                                    if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+
+                                    var current = root.viewBox.baseVal;
+                                    var start = { x: current.x, y: current.y, width: current.width, height: current.height };
+                                    var startedAt = null;
+                                    var duration = 350;
+
+                                    function step(timestamp) {
+                                        if (startedAt === null) startedAt = timestamp;
+                                        var progress = Math.min((timestamp - startedAt) / duration, 1);
+                                        var eased = progress < 0.5
+                                            ? 2 * progress * progress
+                                            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                                        var values = ['x', 'y', 'width', 'height'].map(function (key) {
+                                            return start[key] + (target[key] - start[key]) * eased;
+                                        });
+
+                                        root.setAttribute('viewBox', values.join(' '));
+                                        if (progress < 1) {
+                                            animationFrame = requestAnimationFrame(step);
+                                        } else {
+                                            animationFrame = null;
+                                        }
+                                    }
+
+                                    animationFrame = requestAnimationFrame(step);
+                                }
+
+                                function zoomToBlock(block) {
+                                    if (!root || !originalViewBox) return;
+                                    if (!block) {
+                                        animateViewBox(originalViewBox);
+                                        return;
+                                    }
+
+                                    var bounds = null;
+                                    Object.keys(units).forEach(function (code) {
+                                        var blockMatch = code.match(/^[A-Za-z]+/);
+                                        if (!blockMatch || blockMatch[0] !== block) return;
+                                        var el = root.querySelector('rect[id="' + code + '"]');
+                                        if (!el) return;
+
+                                        var boxBounds = el.getBBox();
+                                        var right = boxBounds.x + boxBounds.width;
+                                        var bottom = boxBounds.y + boxBounds.height;
+                                        if (!bounds) {
+                                            bounds = { x: boxBounds.x, y: boxBounds.y, right: right, bottom: bottom };
+                                        } else {
+                                            bounds.x = Math.min(bounds.x, boxBounds.x);
+                                            bounds.y = Math.min(bounds.y, boxBounds.y);
+                                            bounds.right = Math.max(bounds.right, right);
+                                            bounds.bottom = Math.max(bounds.bottom, bottom);
+                                        }
+                                    });
+
+                                    if (bounds) {
+                                        var padding = 20;
+                                        animateViewBox({
+                                            x: bounds.x - padding,
+                                            y: bounds.y - padding,
+                                            width: bounds.right - bounds.x + padding * 2,
+                                            height: bounds.bottom - bounds.y + padding * 2,
+                                        });
+                                    }
+                                }
+
+                                function applyBlockFilter(block) {
+                                    if (tooltip) tooltip.classList.add('hidden');
+                                    box.querySelectorAll('rect[data-blok]').forEach(function (el) {
+                                        var isSelected = !block || el.dataset.blok === block;
+                                        el.style.opacity = isSelected ? '1' : '0.12';
+                                        el.style.pointerEvents = isSelected ? 'auto' : 'none';
+                                    });
+
+                                    if (selectedCode) {
+                                        var selected = root ? root.querySelector('rect[id="' + selectedCode + '"]') : null;
+                                        if (block && selected && selected.dataset.blok !== block) {
+                                            if (unitInfo) unitInfo.classList.add('hidden');
+                                            selectedCode = null;
+                                        }
+                                    }
+
+                                    updateLegend(block);
+                                    zoomToBlock(block);
+                                }
+
                                 fetch(@json(Storage::disk('s3')->url($property->siteplan_image)))
                                     .then(function (r) { return r.text(); })
                                     .then(function (svg) {
                                         box.innerHTML = svg;
-                                        var root = box.querySelector('svg');
-                                        if (root) { 
-                                            root.style.width = '100%'; 
-                                            root.style.height = 'auto'; 
+                                        root = box.querySelector('svg');
+                                        if (!root) return;
+
+                                        root.style.width = '100%';
+                                        root.style.height = 'auto';
+                                        if (root.viewBox && root.viewBox.baseVal) {
+                                            var viewBox = root.viewBox.baseVal;
+                                            originalViewBox = {
+                                                x: viewBox.x,
+                                                y: viewBox.y,
+                                                width: viewBox.width,
+                                                height: viewBox.height,
+                                            };
                                         }
 
+                                        var missingCodes = [];
+                                        var extraIds = [];
+
                                         Object.keys(units).forEach(function (code) {
-                                            var el = box.querySelector('[id="' + code + '"]');
-                                            if (!el) return;
+                                            var el = root.querySelector('rect[id="' + code + '"]');
+                                            if (!el) {
+                                                missingCodes.push(code);
+                                                return;
+                                            }
                                             
                                             var u = units[code];
-                                            var rawCategory = Object.keys(catLabel).find(key => catLabel[key] === u.category) || 'subsidi';
+                                            var rawCategory = u.cat_key;
                                             
                                             var color = '#6B7280';
                                             if (u.raw_status === 'tersedia' || u.raw_status === 'kavling') {
@@ -328,66 +472,86 @@
 
                                             paint(el, color);
                                             el.style.cursor = 'pointer';
-                                            el.style.transition = 'all 0.2s ease';
-                                            el.dataset.blok = code.replace(/\d+/g, '');
+                                            el.style.transition = 'opacity 0.25s ease';
+                                            el.style.opacity = '1';
+                                            el.style.pointerEvents = 'auto';
+                                            el.dataset.blok = code.match(/^[A-Za-z]+/)[0];
 
                                             el.addEventListener('mouseenter', function (e) {
-                                                document.getElementById('tip-code').textContent = 'Kavling ' + code;
-                                                document.getElementById('tip-cat').textContent = u.category;
-                                                document.getElementById('tip-type').textContent = u.type;
-                                                document.getElementById('tip-status').textContent = u.status;
+                                                var tipCode = document.getElementById('tip-code');
+                                                var tipCategory = document.getElementById('tip-cat');
+                                                var tipType = document.getElementById('tip-type');
+                                                var tipStatus = document.getElementById('tip-status');
+                                                if (tipCode) tipCode.textContent = 'Kavling ' + code;
+                                                if (tipCategory) tipCategory.textContent = u.category;
+                                                if (tipType) tipType.textContent = u.type;
+                                                if (tipStatus) tipStatus.textContent = u.status;
                                                 
-                                                tooltip.classList.remove('hidden');
+                                                if (tooltip) tooltip.classList.remove('hidden');
                                                 el.style.stroke = '#0F172A';
                                                 el.style.strokeWidth = '2';
                                             });
 
                                             el.addEventListener('mousemove', function (e) {
-                                                var rect = box.getBoundingClientRect();
-                                                var x = e.clientX - rect.left + 15;
-                                                var y = e.clientY - rect.top - 60;
-                                                tooltip.style.left = x + 'px';
-                                                tooltip.style.top = y + 'px';
+                                                if (!tooltip) return;
+                                                var rect = siteplan.getBoundingClientRect();
+                                                var x = Math.min(Math.max(0, e.clientX - rect.left + 15), rect.width - tooltip.offsetWidth);
+                                                var y = Math.min(Math.max(0, e.clientY - rect.top - 60), rect.height - tooltip.offsetHeight);
+                                                tooltip.style.left = Math.max(0, x) + 'px';
+                                                tooltip.style.top = Math.max(0, y) + 'px';
                                             });
 
                                             el.addEventListener('mouseleave', function () {
-                                                tooltip.classList.add('hidden');
+                                                if (tooltip) tooltip.classList.add('hidden');
                                                 el.style.stroke = 'none';
                                             });
 
                                             el.addEventListener('click', function () {
-                                                document.getElementById('u-code').textContent = 'Kavling ' + code;
-                                                document.getElementById('u-cat').textContent = u.category;
-                                                document.getElementById('u-status').textContent = u.status;
-                                                document.getElementById('u-type').textContent = u.type;
+                                                selectedCode = code;
+                                                var unitCode = document.getElementById('u-code');
+                                                var unitCategory = document.getElementById('u-cat');
+                                                var unitStatus = document.getElementById('u-status');
+                                                var unitType = document.getElementById('u-type');
+                                                if (unitCode) unitCode.textContent = 'Kavling ' + code;
+                                                if (unitCategory) unitCategory.textContent = u.category;
+                                                if (unitStatus) unitStatus.textContent = u.status;
+                                                if (unitType) unitType.textContent = u.type;
                                                 
                                                 var orderBtn = document.getElementById('u-order');
-                                                if (u.raw_status === 'tersedia' || u.raw_status === 'kavling') {
+                                                if (orderBtn && (u.raw_status === 'tersedia' || u.raw_status === 'kavling')) {
                                                     orderBtn.href = @json(route('order.create', $property->id)) + '?unit=' + encodeURIComponent(code);
                                                     orderBtn.classList.remove('hidden');
-                                                } else {
+                                                } else if (orderBtn) {
                                                     orderBtn.classList.add('hidden');
                                                 }
 
-                                                document.getElementById('unit-info').classList.remove('hidden');
+                                                if (unitInfo) unitInfo.classList.remove('hidden');
                                             });
                                         });
+
+                                        root.querySelectorAll('[id]').forEach(function (el) {
+                                            if (/^[A-Za-z]+\d+$/.test(el.id) && !Object.prototype.hasOwnProperty.call(units, el.id)) {
+                                                extraIds.push(el.id);
+                                            }
+                                        });
+
+                                        if (missingCodes.length || extraIds.length) {
+                                            console.warn('Siteplan: code unit tidak ditemukan di SVG', missingCodes);
+                                            console.warn('Siteplan: ID SVG tidak ada di units', extraIds);
+                                        } else {
+                                            console.info('Siteplan: semua ID cocok');
+                                        }
+
+                                        updateLegend('');
+                                        if (filter && filter.value) applyBlockFilter(filter.value);
                                     })
                                     .catch(function () {
                                         box.innerHTML = '<p class="text-red-500 text-sm p-4">Siteplan gagal dimuat.</p>';
                                     });
 
-                                var filter = document.getElementById('blok-filter');
                                 if (filter) {
                                     filter.addEventListener('change', function () {
-                                        var selectedBlok = filter.value;
-                                        box.querySelectorAll('[data-blok]').forEach(function (el) {
-                                            if (!selectedBlok || el.dataset.blok === selectedBlok) {
-                                                el.style.display = 'block';
-                                            } else {
-                                                el.style.display = 'none';
-                                            }
-                                        });
+                                        applyBlockFilter(filter.value);
                                     });
                                 }
                             });
