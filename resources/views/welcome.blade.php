@@ -43,10 +43,10 @@
                                        text-white
                                        mb-6">
 
-                        Beli properti hanya dengan
+                        Beli Property
 
                         <span class="block text-[#3A8F84]">
-                            Sekali klik.
+                            Hanya dengan Satu Klik.
                         </span>
 
                     </h1>
