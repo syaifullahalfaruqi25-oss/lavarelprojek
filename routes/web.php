@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 
 // Route untuk Beranda (Welcome) + Filter Lengkap
 Route::get('/', function (Request $request) {
@@ -26,8 +27,16 @@ Route::get('/', function (Request $request) {
         $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
 
-    if ($request->filled('kecamatan')) {
-        $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
+    if ($request->filled('daerah')) {
+        $daerah = trim($request->daerah);
+        $daerahParts = explode('-', $daerah, 2);
+
+        if (count($daerahParts) === 2) {
+            $query->where(function ($q) use ($daerahParts) {
+                $q->where('location', 'Ilike', '%' . $daerahParts[0] . '%')
+                    ->orWhere('location', 'Ilike', '%' . $daerahParts[1] . '%');
+            });
+        }
     }
 
     if ($request->filled('developer')) {
@@ -60,8 +69,16 @@ Route::get('/perumahan', function (Request $request) {
         $query->where('location', 'Ilike', '%' . trim($request->kota) . '%');
     }
 
-    if ($request->filled('kecamatan')) {
-        $query->where('location', 'Ilike', '%' . trim($request->kecamatan) . '%');
+    if ($request->filled('daerah')) {
+        $daerah = trim($request->daerah);
+        $daerahParts = explode('-', $daerah, 2);
+
+        if (count($daerahParts) === 2) {
+            $query->where(function ($q) use ($daerahParts) {
+                $q->where('location', 'Ilike', '%' . $daerahParts[0] . '%')
+                    ->orWhere('location', 'Ilike', '%' . $daerahParts[1] . '%');
+            });
+        }
     }
 
     if ($request->filled('developer')) {
@@ -122,3 +139,8 @@ Route::get('/masuk-paksa', function () {
 Route::get('/tentang-kami', function () {
     return view('tentang');
 });
+
+Route::get('/kontak', [ContactController::class, 'show'])->name('contact.index');
+Route::post('/kontak', [ContactController::class, 'store'])
+    ->middleware('throttle:5,10')
+    ->name('contact.store');

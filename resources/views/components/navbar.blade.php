@@ -46,7 +46,7 @@
                     Tentang Kami
                 </a>
 
-                <a href="#kontak"
+                <a href="{{ url('/kontak') }}"
                     class="px-5 py-3 rounded-xl text-white/80 hover:text-[#FFD700] hover:bg-white/5 transition-all duration-300">
                     Kontak
                 </a>
@@ -135,7 +135,7 @@
                     Tentang Kami
                 </a>
 
-                <a href="#kontak" class="block px-4 py-3 rounded-xl
+                <a href="{{ url('/kontak') }}" class="block px-4 py-3 rounded-xl
                     text-white/80
                     hover:text-[#FFD700]
                     hover:bg-[#D4AF37]/10

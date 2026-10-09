@@ -8,7 +8,7 @@ class Property extends Model
 {
     protected $fillable = [
         'name', 'developer', 'location', 'id_lokasi',
-        'subsidi_unit', 'komersil_unit', 'premium_unit',
+        'subsidi_unit', 'menengah_unit', 'premium_unit',
         'image', 'description',
         'google_maps_url',
         'marketing_address',

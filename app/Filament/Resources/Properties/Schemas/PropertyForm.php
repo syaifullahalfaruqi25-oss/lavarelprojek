@@ -33,7 +33,7 @@ class PropertyForm
                     ->required()
                     ->numeric()
                     ->default(0),
-                TextInput::make('komersil_unit')
+                TextInput::make('menengah_unit')
                     ->label('Jumlah Unit Menengah')
                     ->required()
                     ->numeric()
