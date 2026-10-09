@@ -30,7 +30,6 @@ class ContactMessageTest extends TestCase
             'name' => 'Budi Santoso',
             'phone' => '081234567890',
             'email' => 'budi@example.com',
-            'subject' => 'Informasi perumahan',
             'message' => 'Mohon informasi lebih lanjut.',
         ]);
 
@@ -42,7 +41,7 @@ class ContactMessageTest extends TestCase
             'name' => 'Budi Santoso',
             'phone' => '081234567890',
             'email' => 'budi@example.com',
-            'subject' => 'Informasi perumahan',
+            'subject' => 'Pesan dari Form Kontak',
             'message' => 'Mohon informasi lebih lanjut.',
             'is_read' => false,
         ]);
@@ -55,13 +54,12 @@ class ContactMessageTest extends TestCase
                 'name' => '',
                 'phone' => '',
                 'email' => 'alamat-tidak-valid',
-                'subject' => '',
                 'message' => '',
             ]);
 
         $response
             ->assertRedirect(route('contact.index'))
-            ->assertSessionHasErrors(['name', 'phone', 'email', 'subject', 'message']);
+            ->assertSessionHasErrors(['name', 'phone', 'email', 'message']);
     }
 
     public function test_honeypot_submission_is_rejected(): void

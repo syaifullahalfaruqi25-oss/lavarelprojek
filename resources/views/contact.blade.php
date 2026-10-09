@@ -138,21 +138,6 @@
                         </div>
 
                         <div>
-                            <label for="subject" class="mb-2 block text-sm font-semibold text-gray-700">Subjek <span class="text-red-600">*</span></label>
-                            <input
-                                id="subject"
-                                name="subject"
-                                type="text"
-                                value="{{ old('subject') }}"
-                                required
-                                maxlength="255"
-                                aria-invalid="@error('subject') true @else false @enderror"
-                                class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-[#2A8575] focus:ring-2 focus:ring-[#2A8575]/20"
-                            >
-                            @error('subject') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
-                        </div>
-
-                        <div>
                             <label for="message" class="mb-2 block text-sm font-semibold text-gray-700">Pesan <span class="text-red-600">*</span></label>
                             <textarea
                                 id="message"

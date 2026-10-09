@@ -31,7 +31,7 @@ class ContactController extends Controller
         $whatsappNumber = preg_replace('/\D+/', '', (string) $whatsapp) ?? '';
 
         if (str_starts_with($whatsappNumber, '0')) {
-            $whatsappNumber = '62' . substr($whatsappNumber, 1);
+            $whatsappNumber = '62'.substr($whatsappNumber, 1);
         }
 
         return view('contact', compact('contact', 'whatsappNumber'));
@@ -45,7 +45,6 @@ class ContactController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
             'email' => ['nullable', 'email', 'max:255'],
-            'subject' => ['required', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:5000'],
         ], [
             'name.required' => 'Nama wajib diisi.',
@@ -56,9 +55,6 @@ class ContactController extends Controller
             'phone.max' => 'Nomor WhatsApp tidak boleh lebih dari 30 karakter.',
             'email.email' => 'Masukkan alamat email yang valid.',
             'email.max' => 'Email tidak boleh lebih dari 255 karakter.',
-            'subject.required' => 'Subjek wajib diisi.',
-            'subject.string' => 'Subjek harus berupa teks.',
-            'subject.max' => 'Subjek tidak boleh lebih dari 255 karakter.',
             'message.required' => 'Pesan wajib diisi.',
             'message.string' => 'Pesan harus berupa teks.',
             'message.max' => 'Pesan tidak boleh lebih dari 5000 karakter.',
@@ -68,7 +64,7 @@ class ContactController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'] ?? null,
             'phone' => $validated['phone'],
-            'subject' => $validated['subject'],
+            'subject' => 'Pesan dari Form Kontak',
             'message' => $validated['message'],
         ]);
 
