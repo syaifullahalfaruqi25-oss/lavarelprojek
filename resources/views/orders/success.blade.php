@@ -2,7 +2,7 @@
 
 @section('content')
 @php
-    $wa = preg_replace('/\D/', '', $order->property->marketing_whatsapp ?? '');
+    $wa = 'https://wa.me/6289665918077';
     $pesan = urlencode("Halo, saya {$order->name}. Saya sudah mengisi pre-order {$order->property->name} dengan kode {$order->code}.");
 @endphp
 <div class="bg-[#F8F9FA] min-h-screen pt-24 pb-20">
@@ -18,7 +18,7 @@
             </p>
 
             @if ($wa)
-                <a href="https://wa.me/{{ $wa }}?text={{ $pesan }}" target="_blank" rel="noopener"
+                <a href="{{ $wa }}?text={{ $pesan }}" target="_blank" rel="noopener"
                     class="block w-full bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold py-2.5 rounded-lg mb-3">
                     Hubungi Pemasaran via WhatsApp
                 </a>

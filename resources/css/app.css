@@ -1,9 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
-@import './welcome.css';
+@import '../../public/css/welcome.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @font-face {
     font-family: 'Metropolis';

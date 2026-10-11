@@ -81,8 +81,8 @@
                             @endif
                         </div>
 
-                        @if ($property->marketing_whatsapp)
-                            <a href="https://wa.me/{{ preg_replace('/\D/', '', $property->marketing_whatsapp) }}"
+                        @if ($property->marketing_whatsapp_url)
+                            <a href="{{ $property->marketing_whatsapp_url }}"
                                 target="_blank" rel="noopener"
                                 class="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold py-2.5 rounded-lg transition-colors">
                                 WhatsApp Kantor Pemasaran
