@@ -12,7 +12,7 @@
 
         <!-- FOTO RUMAH -->
         <div class="absolute inset-0">
-            <img src="{{ asset('images/rumah.png') }}" alt="Rumah SolusiProperti" class="w-full h-full object-cover">
+            <img src="{{ asset('images/rumah.png') }}" alt="Rumah PropertiLoka" class="w-full h-full object-cover">
         </div>
 
         <!-- GRADIENT OVERLAY
@@ -43,10 +43,10 @@
                                        text-white
                                        mb-6">
 
-                        Beli Property
-
-                        <span class="block text-[#3A8F84]">
-                            Hanya dengan Satu Klik.
+                        Beli Property<br>
+                        Dengan
+                        <span class="inline-block text-[#3A8F84]">
+                            Sekali Klik.
                         </span>
 
                     </h1>
@@ -62,7 +62,7 @@
                         lokasi, developer, dan tipe hunian yang mudah ditemukan
                         bersama
                         <strong class="text-white">
-                            SolusiProperti.
+                            PropertiLoka.
                         </strong>
 
                     </p>
@@ -143,7 +143,7 @@
                 <div>
 
                     <p class="text-[#3A8F84] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-                        Kenapa SolusiProperti?
+                        Kenapa PropertiLoka?
                     </p>
 
                     <h2 class="text-4xl sm:text-5xl font-extrabold text-[#172744] leading-tight mb-6">
@@ -154,7 +154,7 @@
                     </h2>
 
                     <p class="text-gray-600 text-lg leading-relaxed max-w-xl">
-                        SolusiProperti membantu Anda menemukan berbagai pilihan
+                        PropertiLoka membantu Anda menemukan berbagai pilihan
                         hunian dengan informasi yang lebih jelas, pencarian yang
                         mudah, dan pilihan lokasi yang dapat disesuaikan dengan
                         kebutuhan.
@@ -426,12 +426,8 @@
                             Batang
                         </option>
 
-                        <option value="Pemalang" {{ request('kota') == 'Pemalang' ? 'selected' : '' }}>
-                            Pemalang
-                        </option>
-
-                        <option value="Mamuju" {{ request('kota') == 'Mamuju' ? 'selected' : '' }}>
-                            Mamuju
+                        <option value="Pekalongan" {{ request('kota') == 'Pekalongan' ? 'selected' : '' }}>
+                            Pekalongan
                         </option>
 
                     </select>
@@ -472,7 +468,7 @@
                     </select>
 
 
-                    <!-- DEVELOPER -->
+                    <!-- Nama Perumahan -->
                     <select name="developer" onchange="this.form.submit()" class="w-full border border-gray-200
                                bg-[#F8F9FA]
                                rounded-lg
@@ -485,15 +481,15 @@
                                transition">
 
                         <option value="">
-                            Pilih Developer
+                            Nama Perumahan
                         </option>
 
-                        <option value="PT Anugrah Bungsu Mandiri" {{ request('developer') == 'PT Anugrah Bungsu Mandiri' ? 'selected' : '' }}>
-                            PT Anugrah Bungsu Mandiri
+                        <option value="The Royal Calista" {{ request('developer') == 'The Royal Calista' ? 'selected' : '' }}>
+                            The Royal Calista
                         </option>
 
-                        <option value="Gepenk dev" {{ request('developer') == 'Gepenk dev' ? 'selected' : '' }}>
-                            Gepenk dev
+                        <option value="Marison Regency Batang" {{ request('developer') == 'Marison Regency Batang' ? 'selected' : '' }}>
+                            Marison Regency Batang
                         </option>
 
                     </select>

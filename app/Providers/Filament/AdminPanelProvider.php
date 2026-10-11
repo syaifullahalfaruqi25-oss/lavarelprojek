@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('Solusi Property')
+            ->brandName('PropertiLoka')
             ->colors([
                 'primary' => Color::Amber,
             ])

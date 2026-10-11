@@ -13,7 +13,7 @@
                 <a href="/" class="flex items-center gap-3 w-fit">
 
                     <div class="w-11 h-11 bg-white rounded-lg flex items-center justify-center overflow-hidden">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo SolusiProperti"
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo PropertiLoka"
                             class="w-full h-full object-contain"
                             onerror="this.outerHTML='<span class=\'text-black font-bold text-xl\'>S</span>'">
                     </div>
@@ -21,7 +21,7 @@
                     <div class="flex flex-col leading-none">
 
                         <span class="text-white font-bold tracking-widest text-sm">
-                            SOLUSIPROPERTI
+                            PropertiLoka
                         </span>
 
                         <span class="text-[#C9A227] text-[9px] tracking-[0.25em] uppercase mt-1">
@@ -182,7 +182,7 @@
                         </svg>
 
                         <span>
-                            cs@solusiproperti.co.id
+                            cs@propertiLoka.co.id
                         </span>
 
                     </li>
@@ -202,14 +202,14 @@
 
             <p class="text-gray-500 text-xs text-center md:text-left leading-6">
 
-                &copy; {{ date('Y') }} SolusiProperti.
+                &copy; {{ date('Y') }} PropertiLoka.
                 Dilindungi Hak Cipta.
 
                 <br class="block md:hidden">
 
                 Dikembangkan oleh
                 <span class="text-gray-400">
-                    Tim SolusiProperti
+                    Tim PropertiLoka
                 </span>.
 
             </p>
