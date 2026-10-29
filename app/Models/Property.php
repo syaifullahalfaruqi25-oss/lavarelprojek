@@ -15,7 +15,7 @@ class Property extends Model
         'marketing_phone',
         'marketing_email',
         'marketing_whatsapp',
-        'siteplan_image','latitude', 'longitude',
+        'siteplan_image', 'latitude', 'longitude',
     ];
 
     public function photos()
@@ -45,6 +45,25 @@ class Property extends Model
 
         $base = 'https://ywkzuvaspmyagqhgsyxp.supabase.co/storage/v1/object/public/properties/';
 
-        return $base . str_replace('properties/', '', ltrim($this->image, '/'));
+        return $base.str_replace('properties/', '', ltrim($this->image, '/'));
+    }
+
+    public function getMarketingWhatsappUrlAttribute(): ?string
+    {
+        $number = preg_replace('/\D+/', '', (string) $this->marketing_whatsapp);
+
+        if ($number === '') {
+            return null;
+        }
+
+        if (str_starts_with($number, '00')) {
+            $number = substr($number, 2);
+        } elseif (str_starts_with($number, '0')) {
+            $number = '62'.substr($number, 1);
+        } elseif (str_starts_with($number, '8')) {
+            $number = '62'.$number;
+        }
+
+        return $number !== '' ? 'https://wa.me/'.$number : null;
     }
 }
