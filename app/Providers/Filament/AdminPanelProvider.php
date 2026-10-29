@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -23,13 +24,19 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        
+
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
             ->brandName('PropertiLoka')
+            ->userMenuItems([
+                Action::make('website')
+                    ->label('Lihat Website')
+                    ->url('/')
+                    ->icon('heroicon-o-globe-alt'),
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])

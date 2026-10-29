@@ -12,11 +12,8 @@
 
                 <!-- Logo -->
                 <a href="/" class="flex items-center gap-3 w-fit">
-                    <div class="w-11 h-11 bg-white rounded-lg flex items-center justify-center overflow-hidden">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo PropertiLoka"
-                            class="w-full h-full object-contain"
-                            onerror="this.outerHTML='<span class=\'text-black font-bold text-xl\'>S</span>'">
-                    </div>
+                    <img src="{{ asset('images/logo1.png') }}" alt="Logo PropertiLoka"
+                        class="h-14 w-auto object-contain">
 
                     <div class="flex flex-col leading-none">
                         <span class="text-white font-bold tracking-widest text-sm">
@@ -152,6 +149,18 @@
                 </span>.
 
             </p>
+
+            @auth
+                <a href="{{ url('/admin') }}"
+                    class="text-gray-500 hover:text-[#C9A227] text-xs transition-colors">
+                    Dashboard Admin
+                </a>
+            @else
+                <a href="{{ route('filament.admin.auth.login') }}"
+                    class="text-gray-500 hover:text-[#C9A227] text-xs transition-colors">
+                    Login sebagai Admin
+                </a>
+            @endauth
 
 
             <!-- Social Media -->
