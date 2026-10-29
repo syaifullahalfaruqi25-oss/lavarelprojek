@@ -70,7 +70,7 @@
                                 <div>
                                     <dt class="text-sm font-bold text-[#222222]">Alamat</dt>
                                     <dd class="mt-1 whitespace-pre-line text-sm leading-relaxed text-[#777777]">
-                                        Perumahan The Royale Calista Blok B30, Kauman, Batang
+                                        Perumahan The Royal Calista Blok B30, Kauman, Batang
                                     </dd>
                                 </div>
                             </div>
